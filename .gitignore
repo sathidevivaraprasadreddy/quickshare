@@ -37,6 +37,9 @@ logs/
 backend/uploads/*
 !backend/uploads/.gitkeep
 
+# Local developer tools
+tools/
+
 # OS files
 Thumbs.db
 .DS_Store

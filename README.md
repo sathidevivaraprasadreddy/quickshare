@@ -5,6 +5,7 @@
 - **Frontend App:** [https://quickshare-azure.vercel.app/](https://quickshare-azure.vercel.app/)
 - **Backend API:** [https://quickshare-api-hbal.onrender.com/](https://quickshare-api-hbal.onrender.com/)
 - **Cloud Database:** TiDB Serverless (Cloud MySQL)
+- **Cloud Storage:** Supabase Object Storage (1 GB Persistent S3)
 - **Repository:** [https://github.com/sathidevivaraprasadreddy/quickshare](https://github.com/sathidevivaraprasadreddy/quickshare)
 
 ---
