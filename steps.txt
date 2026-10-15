@@ -1,647 +1,3406 @@
 ================================================================================
-QUICKSHARE: COMPLETE STEP-BY-STEP DEVELOPMENT, SETUP & DEPLOYMENT MANUAL (₹0 COST)
+QUICKSHARE: THE COMPLETE MASTER STEP-BY-STEP BLUEPRINT & CODEBASE MANUAL (₹0 COST)
 ================================================================================
-Project Name   : QuickShare (Send Anywhere-inspired Ephemeral File Sharing)
-Total Cost     : ₹0.00 (Zero Rupee Deployment using 100% Free Tiers)
-Date Created   : October 2026
-Live Web App   : https://quickshare-azure.vercel.app/
-Live Backend   : https://quickshare-api-hbal.onrender.com/
-Live Database  : TiDB Serverless (Cloud MySQL 8.0 Compatible)
-Live Storage   : Supabase Cloud Object Storage (1 GB Persistent S3)
-GitHub Repo    : https://github.com/sathidevivaraprasadreddy/quickshare
+Project Name     : QuickShare (Send Anywhere-inspired Ephemeral File Sharing)
+Total Cost       : ₹0.00 (Zero Rupee Deployment using 100% Free Tiers Forever)
+Author           : Senior Full-Stack Developer & Deployment Engineer
+Date             : October 2026
+Live Web App     : https://quickshare-azure.vercel.app/
+Live Backend API : https://quickshare-api-hbal.onrender.com/
+Live Database    : TiDB Serverless (Cloud MySQL 8.0, 5 GB Free Forever)
+Live Storage     : Supabase Object Storage (1 GB Persistent Cloud S3, Zero Card)
+GitHub Repository: https://github.com/sathidevivaraprasadreddy/quickshare
 ================================================================================
 
+This document contains EVERY step, terminal command, configuration, and the
+COMPLETE, 100% UNTRUNCATED SOURCE CODE for every file in the project.
 
---------------------------------------------------------------------------------
+
+================================================================================
 TABLE OF CONTENTS
---------------------------------------------------------------------------------
-1. ARCHITECTURE & ZERO-COST (₹0) STACK OVERVIEW
-2. COMPLETE PROJECT DIRECTORY STRUCTURE
-3. STEP 1: PROJECT INITIALIZATION & ROOT SETUP
-4. STEP 2: DATABASE SCHEMA & MIGRATION SCRIPT
-5. STEP 3: BACKEND IMPLEMENTATION (EXPRESS + MYSQL2 + MULTER + S3)
-6. STEP 4: BACKEND AUTOMATED INTEGRATION TESTS (JEST + SUPERTEST)
-7. STEP 5: FRONTEND IMPLEMENTATION (REACT + VITE + TAILWIND CSS)
-8. STEP 6: LOCAL RUNNING & MULTI-DEVICE TESTING (XAMPP MYSQL)
-9. STEP 7: HOTSPOT & WORLDWIDE TUNNEL ACCESS (CLOUDFLARE TUNNEL)
-10. STEP 8: PUSHING REPOSITORY TO GITHUB
-11. STEP 9: CLOUD DATABASE SETUP (TIDB SERVERLESS - FREE MYSQL)
-12. STEP 10: PERSISTENT CLOUD STORAGE SETUP (SUPABASE S3 BUCKET)
-13. STEP 11: DEPLOYING BACKEND TO RENDER (FREE WEB SERVICE)
-14. STEP 12: DEPLOYING FRONTEND TO VERCEL (FREE EDGE CDN)
-15. STEP 13: END-TO-END PRODUCTION VERIFICATION
-16. SECURITY & MAINTENANCE REFERENCE MANUAL
+================================================================================
+PHASE 1: ₹0 ARCHITECTURE & FREE PROVIDER SPECIFICATIONS
+PHASE 2: PROJECT DIRECTORY & FILE TREE
+PHASE 3: COMPLETE ROOT CONFIGURATION FILES
+PHASE 4: COMPLETE BACKEND IMPLEMENTATION (EVERY FILE & CODE)
+PHASE 5: COMPLETE AUTOMATED TEST SUITE (12/12 PASSING TESTS)
+PHASE 6: COMPLETE FRONTEND IMPLEMENTATION (EVERY FILE & CODE)
+PHASE 7: LOCAL DEVELOPMENT GUIDE (XAMPP MYSQL SETUP)
+PHASE 8: MULTI-DEVICE TESTING & AP ISOLATION BYPASS (CLOUDFLARE TUNNEL)
+PHASE 9: GITHUB VERSION CONTROL SETUP & PUSH
+PHASE 10: TIDB SERVERLESS CLOUD DATABASE SETUP & MIGRATION
+PHASE 11: SUPABASE CLOUD OBJECT STORAGE SETUP (S3 BUCKET)
+PHASE 12: RENDER BACKEND PRODUCTION DEPLOYMENT
+PHASE 13: VERCEL FRONTEND PRODUCTION DEPLOYMENT
+PHASE 14: LIVE PRODUCTION END-TO-END VERIFICATION
+PHASE 15: SECURITY, ARCHITECTURE & MAINTENANCE GUIDE
 
 
 ================================================================================
-1. ARCHITECTURE & ZERO-COST (₹0) STACK OVERVIEW
+PHASE 1: ₹0 ARCHITECTURE & FREE PROVIDER SPECIFICATIONS
 ================================================================================
-QuickShare is an ephemeral, secure file-sharing web service inspired by the core 
-functionality of Send Anywhere:
-- Select single or multiple files with drag-and-drop.
-- Real-time animated upload progress bar (0% - 100%).
-- Unpredictable 128-bit cryptographic tokens (crypto.randomBytes).
-- Recipient download page for single files or zipped bundle (.zip).
-- Owner Revocation Key to delete files and kill the link at any time.
-- Configurable expiration (1h, 6h, 24h, 3d, 7d) with automatic background shredder.
-- QR Code display for instant mobile camera scanning.
+QuickShare is designed to cost ₹0 to develop, test, and host perpetually using
+currently active free tiers without requiring paid trials or credit cards:
 
-Verified ₹0 Free Hosting Providers:
-1. Frontend Hosting: Vercel (100 GB/mo edge bandwidth, free *.vercel.app domain).
-2. Backend Hosting : Render (512 MB RAM, free *.onrender.com domain, TLS cert).
-3. Cloud Database  : TiDB Serverless (5 GB row storage forever free, 100% MySQL).
-4. Cloud Storage   : Supabase Storage (1 GB persistent S3 storage, zero card).
-5. Code Repository : GitHub (Free private/public Git hosting).
+1. Frontend Hosting: VERCEL (Hobby Tier)
+   - 100 GB/month high-speed edge CDN bandwidth.
+   - Automatic SSL / TLS certificates.
+   - Free custom subdomain (*.vercel.app).
+   - Instant continuous deployment from GitHub.
+
+2. Backend Hosting: RENDER (Free Web Service)
+   - 512 MB RAM, 0.1 CPU.
+   - Automatic TLS certificate.
+   - Free custom subdomain (*.onrender.com).
+   - Auto-sleep after 15 minutes of inactivity; spins up on incoming request.
+
+3. Database: TiDB SERVERLESS (Starter Free Plan)
+   - 5 GB row-based storage forever free.
+   - 50 Million Request Units (RUs) per month free.
+   - 100% MySQL wire compatibility (works with mysql2).
+   - Zero credit card required on signup.
+
+4. Persistent Storage: SUPABASE OBJECT STORAGE
+   - 1 GB persistent cloud storage forever free.
+   - 50 MB maximum file size per upload.
+   - Standard S3-compatible API protocol.
+   - Zero credit card required on signup.
 
 
 ================================================================================
-2. COMPLETE PROJECT DIRECTORY STRUCTURE
+PHASE 2: PROJECT DIRECTORY & FILE TREE
 ================================================================================
 share/
 ├── .gitignore
-├── package.json                   # Root script orchestrator
-├── README.md                      # Comprehensive project documentation
-├── render.yaml                    # Render blueprint deployment file
-├── steps.txt                      # This complete manual
+├── package.json
+├── render.yaml
+├── README.md
+├── steps.txt
 │
-├── backend/                       # Node.js + Express Backend
+├── backend/
 │   ├── .env.example
-│   ├── .env                       # Local environment variables
+│   ├── .env
 │   ├── package.json
 │   ├── database/
-│   │   ├── schema.sql             # MySQL DDL table creation script
-│   │   └── migrate.js             # Automated database migration runner
+│   │   ├── schema.sql
+│   │   └── migrate.js
 │   ├── src/
-│   │   ├── app.js                 # Express app, Helmet, CORS, and routes
-│   │   ├── server.js              # Server entry point & cron scheduler
+│   │   ├── server.js
+│   │   ├── app.js
 │   │   ├── config/
-│   │   │   └── db.js              # MySQL connection pool (XAMPP / TiDB)
+│   │   │   └── db.js
 │   │   ├── controllers/
-│   │   │   └── shareController.js # Upload, download, ZIP & revoke logic
+│   │   │   └── shareController.js
 │   │   ├── middleware/
-│   │   │   ├── errorHandler.js    # Global error & Multer normalizer
-│   │   │   ├── rateLimiter.js     # IP rate limiters (Upload/Download/API)
-│   │   │   └── upload.js          # Multer file filter and size enforcement
+│   │   │   ├── errorHandler.js
+│   │   │   ├── rateLimiter.js
+│   │   │   └── upload.js
 │   │   ├── routes/
-│   │   │   └── shareRoutes.js     # REST API route endpoints
+│   │   │   └── shareRoutes.js
 │   │   ├── services/
-│   │   │   ├── cleanupService.js  # Node-cron background cleaner
-│   │   │   └── storageService.js  # Pluggable Local Disk & S3 Storage Driver
+│   │   │   ├── cleanupService.js
+│   │   │   └── storageService.js
 │   │   └── utils/
-│   │       └── fileSecurity.js    # Crypto token generator & path sanitization
+│   │       └── fileSecurity.js
 │   ├── tests/
-│   │   └── api.test.js            # Automated Jest integration tests (12 tests)
-│   └── uploads/                   # Local uploads directory (gitignored)
+│   │   └── api.test.js
+│   └── uploads/
 │       └── .gitkeep
 │
-└── frontend/                      # React 18 + Vite Frontend
+└── frontend/
     ├── .env.example
-    ├── .env                       # Local environment variables
-    ├── index.html                 # Single page app template & fonts
+    ├── .env
+    ├── index.html
     ├── package.json
     ├── postcss.config.js
-    ├── tailwind.config.js         # Send Anywhere vibrant palette
-    ├── vercel.json                # SPA rewrite rules for Vercel
-    ├── vite.config.js             # Dev reverse proxy & network host
+    ├── tailwind.config.js
+    ├── vercel.json
+    ├── vite.config.js
     └── src/
-        ├── main.jsx               # React DOM entry point
-        ├── App.jsx                # Main application state & view router
-        ├── index.css              # Tailwind directives & custom animations
+        ├── main.jsx
+        ├── App.jsx
+        ├── index.css
         ├── components/
-        │   ├── Navbar.jsx         # Header & backend connectivity badge
-        │   ├── FileUploader.jsx   # Drag & drop upload dropzone
-        │   ├── FileList.jsx       # Selected files list & live progress bar
-        │   ├── ShareResult.jsx    # Generated share link, QR trigger & revoke
-        │   ├── DownloadView.jsx   # Receiver screen (single/ZIP download)
-        │   └── QRCodeModal.jsx    # QR Code generator for mobile scan
+        │   ├── Navbar.jsx
+        │   ├── FileUploader.jsx
+        │   ├── FileList.jsx
+        │   ├── ShareResult.jsx
+        │   ├── DownloadView.jsx
+        │   └── QRCodeModal.jsx
         ├── services/
-        │   └── api.js             # Axios client with onUploadProgress
+        │   └── api.js
         └── utils/
-            └── formatters.js      # Bytes and expiration countdown formatters
+            └── formatters.js
 
 
 ================================================================================
-3. STEP 1: PROJECT INITIALIZATION & ROOT SETUP
+PHASE 3: COMPLETE ROOT CONFIGURATION FILES
 ================================================================================
-1. Create project root directory:
-   mkdir C:\Users\deviv\OneDrive\Desktop\share
+
+--------------------------------------------------------------------------------
+FILE: .gitignore
+--------------------------------------------------------------------------------
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production builds
+dist/
+build/
+
+# Environment secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Editor configurations
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Uploaded storage files (local development)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Local developer tools
+tools/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+
+--------------------------------------------------------------------------------
+FILE: package.json (Root Orchestration)
+--------------------------------------------------------------------------------
+{
+  "name": "quickshare-project",
+  "version": "1.0.0",
+  "description": "QuickShare - Complete Free File Sharing Solution",
+  "private": true,
+  "scripts": {
+    "backend": "npm --prefix backend run dev",
+    "frontend": "npm --prefix frontend run dev",
+    "backend:test": "npm --prefix backend test",
+    "frontend:build": "npm --prefix frontend run build",
+    "migrate": "npm --prefix backend run migrate"
+  }
+}
+
+
+--------------------------------------------------------------------------------
+FILE: render.yaml (Render Production Blueprint)
+--------------------------------------------------------------------------------
+services:
+  - type: web
+    name: quickshare-api
+    env: node
+    plan: free
+    region: oregon
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node src/server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: STORAGE_DRIVER
+        value: s3
+      - key: DATABASE_URL
+        sync: false
+      - key: S3_ENDPOINT
+        sync: false
+      - key: S3_REGION
+        value: ap-southeast-1
+      - key: S3_ACCESS_KEY_ID
+        sync: false
+      - key: S3_SECRET_ACCESS_KEY
+        sync: false
+      - key: S3_BUCKET_NAME
+        value: quickshare-files
+      - key: FRONTEND_URL
+        sync: false
+
+
+================================================================================
+PHASE 4: COMPLETE BACKEND IMPLEMENTATION (EVERY FILE & CODE)
+================================================================================
+
+--------------------------------------------------------------------------------
+FILE: backend/package.json
+--------------------------------------------------------------------------------
+{
+  "name": "quickshare-backend",
+  "version": "1.0.0",
+  "description": "Backend API for QuickShare file-sharing service",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "migrate": "node database/migrate.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --detectOpenHandles"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.750.0",
+    "@aws-sdk/lib-storage": "^3.750.0",
+    "archiver": "^7.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "mime-types": "^2.1.35",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.12.0",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
+
+
+--------------------------------------------------------------------------------
+FILE: backend/.env.example
+--------------------------------------------------------------------------------
+PORT=5050
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5180
+
+# Local XAMPP MySQL
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=
+DB_NAME=quickshare_db
+
+# Production Hosted MySQL Database (TiDB Serverless)
+DATABASE_URL=
+
+# Storage Driver: 'local' (development) or 's3' (production Supabase / R2)
+STORAGE_DRIVER=local
+UPLOAD_DIR=./uploads
+
+# Cloud Storage S3 Configuration (Supabase Object Storage)
+S3_ENDPOINT=https://<project-ref>.supabase.co/storage/v1/s3
+S3_REGION=ap-southeast-1
+S3_ACCESS_KEY_ID=
+S3_SECRET_ACCESS_KEY=
+S3_BUCKET_NAME=quickshare-files
+
+# Security Limits
+MAX_FILE_SIZE_MB=50
+MAX_FILES_COUNT=10
+DEFAULT_EXPIRY_HOURS=24
+CLEANUP_CRON_SCHEDULE=*/15 * * * *
+
+
+--------------------------------------------------------------------------------
+FILE: backend/database/schema.sql
+--------------------------------------------------------------------------------
+-- QuickShare Database Schema for MySQL / TiDB / MariaDB
+CREATE DATABASE IF NOT EXISTS quickshare_db
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE quickshare_db;
+
+-- Table: share_sessions
+-- Represents a single upload session (which can contain one or multiple files)
+CREATE TABLE IF NOT EXISTS share_sessions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  share_token VARCHAR(64) NOT NULL UNIQUE,
+  revoke_token VARCHAR(64) NOT NULL,
+  total_size_bytes BIGINT NOT NULL DEFAULT 0,
+  file_count INT NOT NULL DEFAULT 1,
+  expires_at DATETIME NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  is_revoked TINYINT(1) NOT NULL DEFAULT 0,
+  download_count INT NOT NULL DEFAULT 0,
+  INDEX idx_share_token (share_token),
+  INDEX idx_expires_at (expires_at),
+  INDEX idx_is_revoked (is_revoked)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Table: share_files
+-- Represents individual files uploaded in a session
+CREATE TABLE IF NOT EXISTS share_files (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  session_id INT NOT NULL,
+  original_name VARCHAR(255) NOT NULL,
+  stored_name VARCHAR(255) NOT NULL,
+  file_path VARCHAR(500) NOT NULL,
+  file_size BIGINT NOT NULL,
+  mime_type VARCHAR(127) NOT NULL DEFAULT 'application/octet-stream',
+  storage_driver VARCHAR(32) NOT NULL DEFAULT 'local',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_session_id (session_id),
+  CONSTRAINT fk_session_files FOREIGN KEY (session_id) 
+    REFERENCES share_sessions (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+--------------------------------------------------------------------------------
+FILE: backend/database/migrate.js
+--------------------------------------------------------------------------------
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+async function runMigration() {
+  const isUrlConfig = Boolean(process.env.DATABASE_URL);
+  let connection;
+
+  try {
+    if (isUrlConfig) {
+      connection = await mysql.createConnection({
+        uri: process.env.DATABASE_URL,
+        multipleStatements: true,
+        ssl: process.env.DATABASE_URL.includes('ssl=') ? undefined : { rejectUnauthorized: false }
+      });
+      console.log('Connected using DATABASE_URL.');
+    } else {
+      connection = await mysql.createConnection({
+        host: process.env.DB_HOST || '127.0.0.1',
+        port: Number(process.env.DB_PORT) || 3306,
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || '',
+        multipleStatements: true
+      });
+      console.log(`Connected to MySQL server at ${process.env.DB_HOST || '127.0.0.1'}:${process.env.DB_PORT || 3306}`);
+    }
+
+    const schemaPath = path.join(__dirname, 'schema.sql');
+    const sql = fs.readFileSync(schemaPath, 'utf8');
+
+    console.log('Executing database migrations...');
+    await connection.query(sql);
+    console.log('Migration completed successfully.');
+
+    await connection.end();
+    process.exit(0);
+  } catch (err) {
+    console.error('Migration failed:', err);
+    if (connection) await connection.end();
+    process.exit(1);
+  }
+}
+
+runMigration();
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/config/db.js
+--------------------------------------------------------------------------------
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+let pool;
+
+export function getDbPool() {
+  if (pool) return pool;
+
+  const isUrlConfig = Boolean(process.env.DATABASE_URL);
+
+  if (isUrlConfig) {
+    pool = mysql.createPool({
+      uri: process.env.DATABASE_URL,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+      ssl: process.env.DATABASE_URL.includes('ssl=') ? undefined : { rejectUnauthorized: false }
+    });
+  } else {
+    pool = mysql.createPool({
+      host: process.env.DB_HOST || '127.0.0.1',
+      port: Number(process.env.DB_PORT) || 3306,
+      user: process.env.DB_USER || 'root',
+      password: process.env.DB_PASSWORD || '',
+      database: process.env.DB_NAME || 'quickshare_db',
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0
+    });
+  }
+
+  return pool;
+}
+
+export async function testDbConnection() {
+  try {
+    const db = getDbPool();
+    const [rows] = await db.query('SELECT 1 + 1 AS solution');
+    return { connected: true, solution: rows[0].solution };
+  } catch (error) {
+    return { connected: false, error: error.message };
+  }
+}
+
+export default getDbPool();
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/utils/fileSecurity.js
+--------------------------------------------------------------------------------
+import crypto from 'crypto';
+import path from 'path';
+
+/**
+ * Generate a cryptographically secure, unpredictable token for public sharing.
+ * 32 characters (16 bytes hex) gives 2^128 possible values.
+ */
+export function generateShareToken() {
+  return crypto.randomBytes(16).toString('hex');
+}
+
+/**
+ * Generate a cryptographically secure token for revoking/deleting a session.
+ * 48 characters (24 bytes hex) ensures high entropy.
+ */
+export function generateRevokeToken() {
+  return crypto.randomBytes(24).toString('hex');
+}
+
+/**
+ * Sanitize original filename to prevent path traversal and shell injection risks.
+ * Preserves normal characters, dashes, underscores, dots, and spaces.
+ */
+export function sanitizeFilename(originalName) {
+  if (!originalName || typeof originalName !== 'string') {
+    return 'unnamed_file';
+  }
+
+  // Strip path traversal attempts and directory components
+  const baseName = path.basename(originalName.trim());
+
+  // Replace null bytes and dangerous control characters
+  const cleanName = baseName
+    .replace(/[\x00-\x1f\x80-\x9f]/g, '')
+    .replace(/[<>:"/\\|?*]/g, '_');
+
+  return cleanName.length > 0 ? cleanName.substring(0, 200) : 'file';
+}
+
+/**
+ * Generate an unpredictable internal stored filename.
+ * Uses 16 random bytes + timestamp + sanitized extension.
+ * This guarantees no collisions and zero correlation with original filesystem names.
+ */
+export function generateStoredFilename(originalName) {
+  const ext = path.extname(originalName || '').toLowerCase().substring(0, 10);
+  const safeExt = ext.replace(/[^a-z0-9.]/gi, '');
+  const randomPart = crypto.randomBytes(16).toString('hex');
+  const timestamp = Date.now();
+  return `${timestamp}_${randomPart}${safeExt}`;
+}
+
+/**
+ * Format bytes into human-readable units (e.g. 1.25 MB)
+ */
+export function formatBytes(bytes, decimals = 2) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/services/storageService.js
+--------------------------------------------------------------------------------
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  DeleteObjectCommand,
+  DeleteObjectsCommand,
+  HeadObjectCommand
+} from '@aws-sdk/client-s3';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const DEFAULT_UPLOAD_DIR = path.resolve(__dirname, '../../uploads');
+const UPLOAD_DIR = process.env.UPLOAD_DIR
+  ? path.resolve(process.cwd(), process.env.UPLOAD_DIR)
+  : DEFAULT_UPLOAD_DIR;
+
+// Ensure upload directory exists for local driver
+if (!fs.existsSync(UPLOAD_DIR)) {
+  fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+}
+
+export class StorageService {
+  constructor() {
+    this.driver = (process.env.STORAGE_DRIVER || 'local').toLowerCase();
+    this.uploadDir = UPLOAD_DIR;
+    this.s3Bucket = process.env.S3_BUCKET_NAME || 'quickshare-files';
+
+    if (this.driver === 's3') {
+      const endpoint = process.env.S3_ENDPOINT || undefined;
+      const region = process.env.S3_REGION || 'auto';
+      const accessKeyId = process.env.S3_ACCESS_KEY_ID;
+      const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY;
+
+      if (!accessKeyId || !secretAccessKey) {
+        console.warn('⚠️ S3 credentials missing. Falling back to local storage.');
+        this.driver = 'local';
+      } else {
+        this.s3Client = new S3Client({
+          region,
+          endpoint,
+          credentials: {
+            accessKeyId,
+            secretAccessKey
+          },
+          forcePathStyle: true // Needed for Supabase Storage & Cloudflare R2
+        });
+        console.log(`[Storage] Initialized S3-compatible driver (Bucket: ${this.s3Bucket})`);
+      }
+    }
+  }
+
+  getUploadDir() {
+    return this.uploadDir;
+  }
+
+  /**
+   * Verify and resolve absolute path safely to prevent directory traversal in local driver.
+   */
+  resolveSafePath(storedName) {
+    const sanitized = path.basename(storedName);
+    const fullPath = path.resolve(this.uploadDir, sanitized);
+
+    if (!fullPath.startsWith(this.uploadDir)) {
+      throw new Error('Access denied: Invalid file path traversal attempt.');
+    }
+    return fullPath;
+  }
+
+  /**
+   * Check if file exists
+   */
+  async fileExists(storedName) {
+    if (this.driver === 's3') {
+      try {
+        await this.s3Client.send(
+          new HeadObjectCommand({
+            Bucket: this.s3Bucket,
+            Key: storedName
+          })
+        );
+        return true;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    try {
+      const fullPath = this.resolveSafePath(storedName);
+      return fs.existsSync(fullPath);
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Upload file to remote storage (called during upload if driver is s3)
+   */
+  async persistUploadedFile(storedName, originalMimeType) {
+    if (this.driver === 's3') {
+      const fullPath = this.resolveSafePath(storedName);
+      const fileStream = fs.createReadStream(fullPath);
+
+      await this.s3Client.send(
+        new PutObjectCommand({
+          Bucket: this.s3Bucket,
+          Key: storedName,
+          Body: fileStream,
+          ContentType: originalMimeType || 'application/octet-stream'
+        })
+      );
+
+      // Clean up local temp file after uploading to S3
+      await fs.promises.unlink(fullPath).catch(() => {});
+    }
+  }
+
+  /**
+   * Get readable stream for downloading
+   */
+  async getFileStream(storedName) {
+    if (this.driver === 's3') {
+      const command = new GetObjectCommand({
+        Bucket: this.s3Bucket,
+        Key: storedName
+      });
+      const response = await this.s3Client.send(command);
+      return response.Body; // Node stream
+    }
+
+    const fullPath = this.resolveSafePath(storedName);
+    if (!fs.existsSync(fullPath)) {
+      throw new Error('File not found on storage.');
+    }
+    return fs.createReadStream(fullPath);
+  }
+
+  /**
+   * Delete a single stored file
+   */
+  async deleteFile(storedName) {
+    if (this.driver === 's3') {
+      try {
+        await this.s3Client.send(
+          new DeleteObjectCommand({
+            Bucket: this.s3Bucket,
+            Key: storedName
+          })
+        );
+        return true;
+      } catch (err) {
+        console.error(`[S3 Delete Error] ${storedName}:`, err.message);
+        return false;
+      }
+    }
+
+    try {
+      const fullPath = this.resolveSafePath(storedName);
+      if (fs.existsSync(fullPath)) {
+        await fs.promises.unlink(fullPath);
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error(`Error deleting file ${storedName}:`, err.message);
+      return false;
+    }
+  }
+
+  /**
+   * Delete multiple stored files
+   */
+  async deleteFiles(storedNames) {
+    if (storedNames.length === 0) return 0;
+
+    if (this.driver === 's3') {
+      try {
+        await this.s3Client.send(
+          new DeleteObjectsCommand({
+            Bucket: this.s3Bucket,
+            Delete: {
+              Objects: storedNames.map((Key) => ({ Key }))
+            }
+          })
+        );
+        return storedNames.length;
+      } catch (err) {
+        console.error('[S3 Batch Delete Error]:', err.message);
+        return 0;
+      }
+    }
+
+    const results = await Promise.all(
+      storedNames.map((name) => this.deleteFile(name))
+    );
+    return results.filter(Boolean).length;
+  }
+}
+
+export const storageService = new StorageService();
+export default storageService;
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/services/cleanupService.js
+--------------------------------------------------------------------------------
+import cron from 'node-cron';
+import { getDbPool } from '../config/db.js';
+import storageService from './storageService.js';
+
+/**
+ * Scan database for expired sessions, delete associated files from disk/storage,
+ * and remove the expired sessions from the database.
+ */
+export async function cleanupExpiredFiles() {
+  const db = getDbPool();
+  try {
+    // 1. Find all sessions that are expired (expires_at < NOW()) or marked revoked
+    // and retrieve their stored file paths
+    const [expiredFiles] = await db.query(
+      `SELECT f.id AS file_id, f.stored_name, s.id AS session_id, s.share_token 
+       FROM share_files f
+       JOIN share_sessions s ON f.session_id = s.id
+       WHERE s.expires_at < NOW() OR s.is_revoked = 1`
+    );
+
+    if (expiredFiles.length === 0) {
+      return { cleanedFilesCount: 0, cleanedSessionsCount: 0 };
+    }
+
+    // 2. Delete physical files from storage
+    const storedNames = expiredFiles.map((f) => f.stored_name);
+    await storageService.deleteFiles(storedNames);
+
+    // 3. Delete expired sessions from database (CASCADE deletes file records)
+    const sessionIds = [...new Set(expiredFiles.map((f) => f.session_id))];
+    const placeholders = sessionIds.map(() => '?').join(',');
+
+    const [deleteResult] = await db.query(
+      `DELETE FROM share_sessions WHERE id IN (${placeholders})`,
+      sessionIds
+    );
+
+    console.log(
+      `[Cleanup] Removed ${deleteResult.affectedRows} expired session(s) and ${storedNames.length} file(s).`
+    );
+
+    return {
+      cleanedFilesCount: storedNames.length,
+      cleanedSessionsCount: deleteResult.affectedRows
+    };
+  } catch (err) {
+    console.error('[Cleanup] Error during expired files cleanup:', err.message);
+    return { error: err.message };
+  }
+}
+
+/**
+ * Start the background cron job for automatic cleanup.
+ */
+export function startCleanupJob() {
+  const schedule = process.env.CLEANUP_CRON_SCHEDULE || '*/15 * * * *';
+  console.log(`[Cleanup] Background cleaner scheduled with pattern: ${schedule}`);
+
+  cron.schedule(schedule, async () => {
+    console.log('[Cleanup] Running scheduled expired files cleaner...');
+    await cleanupExpiredFiles();
+  });
+
+  // Also run once shortly after server boot to clean anything that expired while offline
+  setTimeout(() => {
+    cleanupExpiredFiles().catch((err) =>
+      console.error('[Cleanup] Initial startup cleanup error:', err.message)
+    );
+  }, 5000);
+}
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/middleware/rateLimiter.js
+--------------------------------------------------------------------------------
+import rateLimit from 'express-rate-limit';
+
+// Global API rate limit
+export const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 300, // Limit each IP to 300 requests per 15-minute window
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: 'Too many requests from this IP. Please try again after 15 minutes.'
+  }
+});
+
+// Stricter rate limit for file uploads to prevent storage abuse
+export const uploadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 30, // Limit each IP to 30 uploads per 15-minute window
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: 'Upload limit reached. You can only create 30 sharing sessions per 15 minutes.'
+  }
+});
+
+// Download rate limit
+export const downloadLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 120, // 120 downloads per 15-minute window
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    success: false,
+    error: 'Download rate limit reached. Please try again later.'
+  }
+});
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/middleware/upload.js
+--------------------------------------------------------------------------------
+import multer from 'multer';
+import path from 'path';
+import storageService from '../services/storageService.js';
+import { generateStoredFilename, sanitizeFilename } from '../utils/fileSecurity.js';
+
+const MAX_FILE_SIZE_MB = Number(process.env.MAX_FILE_SIZE_MB) || 50;
+const MAX_FILES_COUNT = Number(process.env.MAX_FILES_COUNT) || 10;
+
+// Block dangerous executable extensions that could harm a server or recipient if executed
+const BLOCKED_EXTENSIONS = new Set([
+  '.exe', '.bat', '.cmd', '.sh', '.bash', '.vbs', '.msi', '.com', 
+  '.scr', '.pif', '.application', '.gadget', '.hta', '.cpl', '.msc', 
+  '.jar', '.php', '.asp', '.aspx', '.jsp', '.cgi', '.pl'
+]);
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, storageService.getUploadDir());
+  },
+  filename: (req, file, cb) => {
+    // Decode original name if latin1 encoded by multer
+    let originalName = file.originalname;
+    try {
+      originalName = Buffer.from(file.originalname, 'latin1').toString('utf8');
+    } catch {
+      originalName = file.originalname;
+    }
+    file.sanitizedOriginalName = sanitizeFilename(originalName);
+    const storedName = generateStoredFilename(file.sanitizedOriginalName);
+    cb(null, storedName);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  const ext = path.extname(file.originalname || '').toLowerCase();
+  if (BLOCKED_EXTENSIONS.has(ext)) {
+    return cb(
+      new Error(`Files with extension '${ext}' are restricted for security reasons.`),
+      false
+    );
+  }
+  cb(null, true);
+};
+
+export const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: MAX_FILE_SIZE_MB * 1024 * 1024, // bytes
+    files: MAX_FILES_COUNT
+  }
+});
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/middleware/errorHandler.js
+--------------------------------------------------------------------------------
+import multer from 'multer';
+
+export function errorHandler(err, req, res, next) {
+  console.error('[Error Handler]', err);
+
+  // Multer errors
+  if (err instanceof multer.MulterError) {
+    if (err.code === 'LIMIT_FILE_SIZE') {
+      const maxMb = process.env.MAX_FILE_SIZE_MB || 50;
+      return res.status(400).json({
+        success: false,
+        error: `File too large. Maximum allowed size is ${maxMb}MB per file.`
+      });
+    }
+    if (err.code === 'LIMIT_FILE_COUNT') {
+      const maxCount = process.env.MAX_FILES_COUNT || 10;
+      return res.status(400).json({
+        success: false,
+        error: `Too many files. Maximum allowed is ${maxCount} files per upload session.`
+      });
+    }
+    return res.status(400).json({
+      success: false,
+      error: `Upload error: ${err.message}`
+    });
+  }
+
+  // Custom validation or file filter error
+  if (err.message && err.message.includes('restricted for security reasons')) {
+    return res.status(400).json({
+      success: false,
+      error: err.message
+    });
+  }
+
+  // Path traversal or illegal path errors
+  if (err.message && err.message.includes('Access denied')) {
+    return res.status(403).json({
+      success: false,
+      error: err.message
+    });
+  }
+
+  // Default server error
+  const statusCode = err.statusCode || 500;
+  res.status(statusCode).json({
+    success: false,
+    error: err.message || 'An unexpected internal server error occurred.'
+  });
+}
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/controllers/shareController.js
+--------------------------------------------------------------------------------
+import path from 'path';
+import archiver from 'archiver';
+import mime from 'mime-types';
+import { getDbPool } from '../config/db.js';
+import storageService from '../services/storageService.js';
+import {
+  generateShareToken,
+  generateRevokeToken,
+  sanitizeFilename
+} from '../utils/fileSecurity.js';
+
+// Allowed expiration periods in hours
+const ALLOWED_EXPIRY_HOURS = [1, 6, 24, 72, 168]; // 1 hour, 6 hours, 24 hours (1 day), 3 days, 7 days
+const DEFAULT_EXPIRY_HOURS = 24;
+
+/**
+ * Create a new sharing session with one or multiple files
+ */
+export async function createShareSession(req, res, next) {
+  const files = req.files;
+  if (!files || files.length === 0) {
+    return res.status(400).json({
+      success: false,
+      error: 'Please select at least one file to upload.'
+    });
+  }
+
+  // Parse and validate expiry
+  let expiryHours = parseInt(req.body.expiryHours, 10);
+  if (!ALLOWED_EXPIRY_HOURS.includes(expiryHours)) {
+    expiryHours = DEFAULT_EXPIRY_HOURS;
+  }
+
+  const expiresAt = new Date(Date.now() + expiryHours * 60 * 60 * 1000);
+  const shareToken = generateShareToken();
+  const revokeToken = generateRevokeToken();
+
+  let totalSizeBytes = 0;
+  for (const f of files) {
+    totalSizeBytes += f.size;
+  }
+
+  const db = getDbPool();
+  const connection = await db.getConnection();
+
+  try {
+    await connection.beginTransaction();
+
+    // 1. Insert session record
+    const [sessionResult] = await connection.query(
+      `INSERT INTO share_sessions 
+       (share_token, revoke_token, total_size_bytes, file_count, expires_at)
+       VALUES (?, ?, ?, ?, ?)`,
+      [shareToken, revokeToken, totalSizeBytes, files.length, expiresAt]
+    );
+
+    const sessionId = sessionResult.insertId;
+
+    // 2. Insert file records
+    for (const f of files) {
+      const originalName = f.sanitizedOriginalName || sanitizeFilename(f.originalname);
+      const storedName = f.filename;
+      const mimeType = f.mimetype || mime.lookup(originalName) || 'application/octet-stream';
+
+      await connection.query(
+        `INSERT INTO share_files
+         (session_id, original_name, stored_name, file_path, file_size, mime_type, storage_driver)
+         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+        [
+          sessionId,
+          originalName,
+          storedName,
+          storedName, // relative safe name
+          f.size,
+          mimeType,
+          storageService.driver
+        ]
+      );
+
+      // Persist to remote S3 storage if configured
+      await storageService.persistUploadedFile(storedName, mimeType);
+    }
+
+    await connection.commit();
+
+    return res.status(201).json({
+      success: true,
+      shareToken,
+      revokeToken,
+      expiresAt: expiresAt.toISOString(),
+      fileCount: files.length,
+      totalSizeBytes
+    });
+  } catch (err) {
+    await connection.rollback();
+    // Clean up uploaded files on disk if DB insertion failed
+    for (const f of files) {
+      if (f.filename) {
+        await storageService.deleteFile(f.filename);
+      }
+    }
+    next(err);
+  } finally {
+    connection.release();
+  }
+}
+
+/**
+ * Get share session metadata and file list by share token
+ */
+export async function getShareSession(req, res, next) {
+  try {
+    const { token } = req.params;
+    if (!token || typeof token !== 'string') {
+      return res.status(400).json({ success: false, error: 'Invalid share link.' });
+    }
+
+    const db = getDbPool();
+    const [sessions] = await db.query(
+      `SELECT id, share_token, total_size_bytes, file_count, expires_at, created_at, is_revoked, download_count
+       FROM share_sessions
+       WHERE share_token = ?`,
+      [token]
+    );
+
+    if (sessions.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'This sharing link does not exist or has already been deleted.'
+      });
+    }
+
+    const session = sessions[0];
+
+    // Check if session was revoked by owner
+    if (session.is_revoked) {
+      return res.status(410).json({
+        success: false,
+        isRevoked: true,
+        error: 'This sharing session has been revoked by the owner.'
+      });
+    }
+
+    // Check if session has expired
+    const isExpired = new Date(session.expires_at) < new Date();
+    if (isExpired) {
+      return res.status(410).json({
+        success: false,
+        isExpired: true,
+        error: 'This sharing link has expired.'
+      });
+    }
+
+    // Get files for this session (never expose internal stored_name or file_path)
+    const [files] = await db.query(
+      `SELECT id, original_name, file_size, mime_type, created_at
+       FROM share_files
+       WHERE session_id = ?
+       ORDER BY id ASC`,
+      [session.id]
+    );
+
+    return res.json({
+      success: true,
+      session: {
+        shareToken: session.share_token,
+        totalSizeBytes: session.total_size_bytes,
+        fileCount: session.file_count,
+        expiresAt: session.expires_at,
+        createdAt: session.created_at,
+        downloadCount: session.download_count
+      },
+      files: files.map((f) => ({
+        id: f.id,
+        name: f.original_name,
+        size: f.file_size,
+        mimeType: f.mime_type,
+        createdAt: f.created_at
+      }))
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * Download a single file by file ID within a valid session
+ */
+export async function downloadSingleFile(req, res, next) {
+  try {
+    const { token, fileId } = req.params;
+    const db = getDbPool();
+
+    // 1. Verify session is active and valid
+    const [sessions] = await db.query(
+      `SELECT id, expires_at, is_revoked FROM share_sessions WHERE share_token = ?`,
+      [token]
+    );
+
+    if (sessions.length === 0) {
+      return res.status(404).json({ success: false, error: 'Sharing session not found.' });
+    }
+
+    const session = sessions[0];
+    if (session.is_revoked) {
+      return res.status(410).json({ success: false, error: 'Sharing session has been revoked.' });
+    }
+    if (new Date(session.expires_at) < new Date()) {
+      return res.status(410).json({ success: false, error: 'Sharing link has expired.' });
+    }
+
+    // 2. Fetch file record
+    const [files] = await db.query(
+      `SELECT id, original_name, stored_name, file_size, mime_type
+       FROM share_files
+       WHERE id = ? AND session_id = ?`,
+      [fileId, session.id]
+    );
+
+    if (files.length === 0) {
+      return res.status(404).json({ success: false, error: 'Requested file not found in this session.' });
+    }
+
+    const file = files[0];
+
+    // 3. Verify file exists on storage
+    const exists = await storageService.fileExists(file.stored_name);
+    if (!exists) {
+      return res.status(404).json({ success: false, error: 'File data is missing from storage.' });
+    }
+
+    // 4. Update download count asynchronously
+    db.query(`UPDATE share_sessions SET download_count = download_count + 1 WHERE id = ?`, [session.id]).catch(() => {});
+
+    // 5. Send file with safe content disposition
+    const encodedFilename = encodeURIComponent(file.original_name);
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="${encodedFilename}"; filename*=UTF-8''${encodedFilename}`
+    );
+    res.setHeader('Content-Type', file.mime_type || 'application/octet-stream');
+    res.setHeader('Content-Length', file.file_size);
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
+    const readStream = await storageService.getFileStream(file.stored_name);
+    readStream.on('error', (streamErr) => {
+      console.error('File stream error:', streamErr);
+      if (!res.headersSent) {
+        res.status(500).json({ success: false, error: 'Failed to stream file.' });
+      }
+    });
+
+    readStream.pipe(res);
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * Download all files in a session bundled into a zip archive
+ */
+export async function downloadAllFiles(req, res, next) {
+  try {
+    const { token } = req.params;
+    const db = getDbPool();
+
+    // Verify session
+    const [sessions] = await db.query(
+      `SELECT id, share_token, expires_at, is_revoked FROM share_sessions WHERE share_token = ?`,
+      [token]
+    );
+
+    if (sessions.length === 0) {
+      return res.status(404).json({ success: false, error: 'Sharing session not found.' });
+    }
+
+    const session = sessions[0];
+    if (session.is_revoked) {
+      return res.status(410).json({ success: false, error: 'Sharing session has been revoked.' });
+    }
+    if (new Date(session.expires_at) < new Date()) {
+      return res.status(410).json({ success: false, error: 'Sharing link has expired.' });
+    }
+
+    // Fetch all files
+    const [files] = await db.query(
+      `SELECT id, original_name, stored_name, file_size
+       FROM share_files
+       WHERE session_id = ?`,
+      [session.id]
+    );
+
+    if (files.length === 0) {
+      return res.status(404).json({ success: false, error: 'No files found in this session.' });
+    }
+
+    // Update download count
+    db.query(`UPDATE share_sessions SET download_count = download_count + 1 WHERE id = ?`, [session.id]).catch(() => {});
+
+    const zipFilename = `QuickShare_${token.substring(0, 8)}.zip`;
+
+    res.setHeader('Content-Disposition', `attachment; filename="${zipFilename}"`);
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+
+    const archive = archiver('zip', {
+      zlib: { level: 5 } // balanced compression and speed
+    });
+
+    archive.on('error', (err) => {
+      console.error('Archiver error:', err);
+      if (!res.headersSent) {
+        res.status(500).json({ success: false, error: 'Failed to create zip bundle.' });
+      }
+    });
+
+    archive.pipe(res);
+
+    // Keep track of names to prevent duplicate zip entries
+    const seenNames = new Map();
+
+    for (const f of files) {
+      const exists = await storageService.fileExists(f.stored_name);
+      if (exists) {
+        let entryName = f.original_name;
+        if (seenNames.has(entryName)) {
+          const count = seenNames.get(entryName) + 1;
+          seenNames.set(entryName, count);
+          const ext = path.extname(entryName);
+          const base = path.basename(entryName, ext);
+          entryName = `${base} (${count})${ext}`;
+        } else {
+          seenNames.set(entryName, 0);
+        }
+
+        const fileStream = await storageService.getFileStream(f.stored_name);
+        archive.append(fileStream, { name: entryName });
+      }
+    }
+
+    await archive.finalize();
+  } catch (err) {
+    next(err);
+  }
+}
+
+/**
+ * Revoke/delete a share session early using the secret revokeToken
+ */
+export async function revokeShareSession(req, res, next) {
+  try {
+    const { shareToken, revokeToken } = req.body;
+    if (!shareToken || !revokeToken) {
+      return res.status(400).json({
+        success: false,
+        error: 'Both shareToken and revokeToken are required to revoke a session.'
+      });
+    }
+
+    const db = getDbPool();
+
+    // Verify tokens match
+    const [sessions] = await db.query(
+      `SELECT id, is_revoked FROM share_sessions WHERE share_token = ? AND revoke_token = ?`,
+      [shareToken, revokeToken]
+    );
+
+    if (sessions.length === 0) {
+      return res.status(403).json({
+        success: false,
+        error: 'Invalid authorization token or session does not exist.'
+      });
+    }
+
+    const session = sessions[0];
+    if (session.is_revoked) {
+      return res.json({
+        success: true,
+        message: 'This sharing link was already revoked.'
+      });
+    }
+
+    // Get files to delete from storage immediately
+    const [files] = await db.query(
+      `SELECT stored_name FROM share_files WHERE session_id = ?`,
+      [session.id]
+    );
+
+    // Delete stored files
+    const storedNames = files.map((f) => f.stored_name);
+    await storageService.deleteFiles(storedNames);
+
+    // Mark as revoked
+    await db.query(
+      `UPDATE share_sessions SET is_revoked = 1 WHERE id = ?`,
+      [session.id]
+    );
+
+    return res.json({
+      success: true,
+      message: 'Sharing link has been revoked and files deleted successfully.'
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/routes/shareRoutes.js
+--------------------------------------------------------------------------------
+import express from 'express';
+import {
+  createShareSession,
+  getShareSession,
+  downloadSingleFile,
+  downloadAllFiles,
+  revokeShareSession
+} from '../controllers/shareController.js';
+import { upload } from '../middleware/upload.js';
+import { uploadLimiter, downloadLimiter } from '../middleware/rateLimiter.js';
+import { testDbConnection } from '../config/db.js';
+
+const router = express.Router();
+
+// Health check endpoint
+router.get('/health', async (req, res) => {
+  const dbStatus = await testDbConnection();
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    database: dbStatus
+  });
+});
+
+// Upload multiple files and create sharing session
+router.post('/upload', uploadLimiter, upload.array('files'), createShareSession);
+
+// Get sharing session details and file listing (public)
+router.get('/session/:token', getShareSession);
+
+// Download a single file
+router.get('/download/:token/:fileId', downloadLimiter, downloadSingleFile);
+
+// Download all files bundled as a ZIP
+router.get('/download-all/:token', downloadLimiter, downloadAllFiles);
+
+// Revoke a share session (requires revoke token)
+router.post('/revoke', revokeShareSession);
+
+export default router;
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/app.js
+--------------------------------------------------------------------------------
+import express from 'express';
+import cors from 'cors';
+import helmet from 'helmet';
+import shareRoutes from './routes/shareRoutes.js';
+import { apiLimiter } from './middleware/rateLimiter.js';
+import { errorHandler } from './middleware/errorHandler.js';
+
+const app = express();
+
+// Secure HTTP headers
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' }
+  })
+);
+
+// Flexible CORS setup: allows development localhost & production domains
+const allowedOrigins = [
+  'http://localhost:5180',
+  'http://127.0.0.1:5180',
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:3000'
+];
+
+if (process.env.FRONTEND_URL) {
+  allowedOrigins.push(process.env.FRONTEND_URL);
+}
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps, curl, Postman)
+      if (!origin) return callback(null, true);
+
+      // Check explicit allowed origins
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // Allow any vercel/netlify/render/pages.dev deployment domains
+      const isAllowedHost = 
+        origin.endsWith('.vercel.app') ||
+        origin.endsWith('.netlify.app') ||
+        origin.endsWith('.pages.dev') ||
+        origin.endsWith('.onrender.com');
+
+      if (isAllowedHost) {
+        return callback(null, true);
+      }
+
+      return callback(null, true); // Permissive in dev
+    },
+    methods: ['GET', 'POST', 'OPTIONS'],
+    credentials: true
+  })
+);
+
+// Standard parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Rate limiting on all API routes
+app.use('/api', apiLimiter);
+
+// Mount share routes
+app.use('/api', shareRoutes);
+
+// Root information endpoint
+app.get('/', (req, res) => {
+  res.json({
+    service: 'QuickShare API',
+    version: '1.0.0',
+    status: 'online',
+    endpoints: {
+      health: '/api/health',
+      upload: 'POST /api/upload',
+      session: 'GET /api/session/:token',
+      download: 'GET /api/download/:token/:fileId',
+      downloadAll: 'GET /api/download-all/:token',
+      revoke: 'POST /api/revoke'
+    }
+  });
+});
+
+// 404 Handler for undefined routes
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    error: 'API endpoint not found.'
+  });
+});
+
+// Centralized error handling middleware
+app.use(errorHandler);
+
+export default app;
+
+
+--------------------------------------------------------------------------------
+FILE: backend/src/server.js
+--------------------------------------------------------------------------------
+import app from './app.js';
+import dotenv from 'dotenv';
+import { testDbConnection } from './config/db.js';
+import { startCleanupJob } from './services/cleanupService.js';
+
+dotenv.config();
+
+const PORT = Number(process.env.PORT) || 5050;
+
+async function bootstrap() {
+  // Test DB connection on startup
+  const dbStatus = await testDbConnection();
+  if (!dbStatus.connected) {
+    console.warn('⚠️ Warning: Database connection check failed:', dbStatus.error);
+    console.warn('Please ensure MySQL is running in XAMPP or verify your DB credentials in .env');
+  } else {
+    console.log('✅ Database connected successfully.');
+  }
+
+  // Start background expired file cleanup scheduler
+  startCleanupJob();
+
+  // Listen on all network interfaces (0.0.0.0) so other devices (e.g. mobile phones on the same Wi-Fi) can access it!
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`🚀 QuickShare backend running on http://0.0.0.0:${PORT}`);
+    console.log(`📁 File uploads stored in: ${process.env.UPLOAD_DIR || './uploads'}`);
+  });
+
+  // Graceful shutdown handling
+  const shutdown = () => {
+    console.log('Shutting down server gracefully...');
+    server.close(() => {
+      console.log('HTTP server closed.');
+      process.exit(0);
+    });
+  };
+
+  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', shutdown);
+}
+
+bootstrap();
+
+
+================================================================================
+PHASE 5: COMPLETE AUTOMATED TEST SUITE (12/12 PASSING TESTS)
+================================================================================
+
+--------------------------------------------------------------------------------
+FILE: backend/tests/api.test.js
+--------------------------------------------------------------------------------
+import request from 'supertest';
+import app from '../src/app.js';
+import { getDbPool } from '../src/config/db.js';
+
+describe('QuickShare API Integration Tests', () => {
+  let createdShareToken = '';
+  let createdRevokeToken = '';
+  let uploadedFileId = null;
+
+  afterAll(async () => {
+    // Close db pool to allow jest to exit cleanly
+    const db = getDbPool();
+    await db.end();
+  });
+
+  describe('Health Check', () => {
+    it('should return 200 and healthy status', async () => {
+      const res = await request(app).get('/api/health');
+      expect(res.status).toBe(200);
+      expect(res.body.status).toBe('ok');
+      expect(res.body.database.connected).toBe(true);
+    });
+  });
+
+  describe('File Upload', () => {
+    it('should reject requests with no files attached', async () => {
+      const res = await request(app).post('/api/upload');
+      expect(res.status).toBe(400);
+      expect(res.body.success).toBe(false);
+      expect(res.body.error).toMatch(/select at least one file/i);
+    });
+
+    it('should upload a single text file successfully', async () => {
+      const testBuffer = Buffer.from('Hello QuickShare Test Content!');
+      const res = await request(app)
+        .post('/api/upload')
+        .field('expiryHours', '24')
+        .attach('files', testBuffer, 'test_document.txt');
+
+      expect(res.status).toBe(201);
+      expect(res.body.success).toBe(true);
+      expect(res.body.shareToken).toBeDefined();
+      expect(res.body.revokeToken).toBeDefined();
+      expect(res.body.fileCount).toBe(1);
+      expect(res.body.totalSizeBytes).toBe(testBuffer.length);
+
+      createdShareToken = res.body.shareToken;
+      createdRevokeToken = res.body.revokeToken;
+    });
+
+    it('should upload multiple files in a single session', async () => {
+      const file1 = Buffer.from('File One Content');
+      const file2 = Buffer.from('File Two Content');
+
+      const res = await request(app)
+        .post('/api/upload')
+        .field('expiryHours', '6')
+        .attach('files', file1, 'file1.txt')
+        .attach('files', file2, 'file2.txt');
+
+      expect(res.status).toBe(201);
+      expect(res.body.fileCount).toBe(2);
+      expect(res.body.totalSizeBytes).toBe(file1.length + file2.length);
+    });
+  });
+
+  describe('Session Retrieval', () => {
+    it('should retrieve session details and file listing using share token', async () => {
+      const res = await request(app).get(`/api/session/${createdShareToken}`);
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+      expect(res.body.session.shareToken).toBe(createdShareToken);
+      expect(res.body.files.length).toBe(1);
+      expect(res.body.files[0].name).toBe('test_document.txt');
+
+      uploadedFileId = res.body.files[0].id;
+    });
+
+    it('should return 404 for a non-existent token', async () => {
+      const res = await request(app).get('/api/session/nonexistenttoken12345');
+      expect(res.status).toBe(404);
+      expect(res.body.success).toBe(false);
+    });
+  });
+
+  describe('File Download', () => {
+    it('should download the original file with correct content and headers', async () => {
+      const res = await request(app).get(
+        `/api/download/${createdShareToken}/${uploadedFileId}`
+      );
+      expect(res.status).toBe(200);
+      expect(res.text).toBe('Hello QuickShare Test Content!');
+      expect(res.headers['content-disposition']).toContain('test_document.txt');
+    });
+
+    it('should download all files bundled as a ZIP', async () => {
+      const res = await request(app).get(`/api/download-all/${createdShareToken}`);
+      expect(res.status).toBe(200);
+      expect(res.headers['content-type']).toBe('application/zip');
+      expect(res.headers['content-disposition']).toContain('QuickShare_');
+    });
+  });
+
+  describe('Session Revocation', () => {
+    it('should reject revocation with incorrect revoke token', async () => {
+      const res = await request(app).post('/api/revoke').send({
+        shareToken: createdShareToken,
+        revokeToken: 'wrong_secret_token'
+      });
+      expect(res.status).toBe(403);
+      expect(res.body.success).toBe(false);
+    });
+
+    it('should allow owner to revoke the session using valid revoke token', async () => {
+      const res = await request(app).post('/api/revoke').send({
+        shareToken: createdShareToken,
+        revokeToken: createdRevokeToken
+      });
+      expect(res.status).toBe(200);
+      expect(res.body.success).toBe(true);
+    });
+
+    it('should return 410 Gone when accessing revoked session', async () => {
+      const res = await request(app).get(`/api/session/${createdShareToken}`);
+      expect(res.status).toBe(410);
+      expect(res.body.isRevoked).toBe(true);
+    });
+
+    it('should prevent downloads from revoked session', async () => {
+      const res = await request(app).get(
+        `/api/download/${createdShareToken}/${uploadedFileId}`
+      );
+      expect(res.status).toBe(410);
+    });
+  });
+});
+
+
+================================================================================
+PHASE 6: COMPLETE FRONTEND IMPLEMENTATION (EVERY FILE & CODE)
+================================================================================
+
+--------------------------------------------------------------------------------
+FILE: frontend/package.json
+--------------------------------------------------------------------------------
+{
+  "name": "quickshare-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "lucide-react": "^0.475.0",
+    "qrcode.react": "^4.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.1.0"
+  }
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/vite.config.js
+--------------------------------------------------------------------------------
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    host: true, // Listen on all network addresses (0.0.0.0) for multi-device local network testing
+    port: 5180,
+    strictPort: true,
+    allowedHosts: true, // Allow tunnel domains and external mobile devices
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5050',
+        changeOrigin: true
+      }
+    }
+  }
+});
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/tailwind.config.js
+--------------------------------------------------------------------------------
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50: '#fff1f2',
+          100: '#ffe4e6',
+          200: '#fecdd3',
+          300: '#fda4af',
+          400: '#fb7185',
+          500: '#f43f5e', // Send-Anywhere vibrant coral/rose
+          600: '#e11d48',
+          700: '#be123c',
+          800: '#9f1239',
+          900: '#881337',
+        }
+      }
+    },
+  },
+  plugins: [],
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/postcss.config.js
+--------------------------------------------------------------------------------
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/vercel.json
+--------------------------------------------------------------------------------
+{
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/.env.example
+--------------------------------------------------------------------------------
+# In development, leave blank to use the Vite proxy to http://localhost:5050/api
+# In production, set to your backend deployment URL, e.g. https://quickshare-api-hbal.onrender.com/api
+VITE_API_URL=
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/index.html
+--------------------------------------------------------------------------------
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f43f5e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8'/><polyline points='16 6 12 2 8 6'/><line x1='12' y1='2' x2='12' y2='15'/></svg>" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuickShare - Fast, Secure & Ephemeral File Sharing</title>
+    <meta name="description" content="Share files securely across devices with zero setup, auto-expiration, and instant one-click download." />
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-900 min-h-screen antialiased selection:bg-rose-500 selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/index.css
+--------------------------------------------------------------------------------
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/utils/formatters.js
+--------------------------------------------------------------------------------
+/**
+ * Format bytes into human-readable unit
+ */
+export function formatFileSize(bytes) {
+  if (bytes === 0 || !bytes) return '0 B';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
+}
+
+/**
+ * Format remaining expiration time
+ */
+export function formatTimeRemaining(expiresAt) {
+  if (!expiresAt) return '';
+  const now = new Date().getTime();
+  const target = new Date(expiresAt).getTime();
+  const diff = target - now;
+
+  if (diff <= 0) return 'Expired';
+
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+  if (hours >= 24) {
+    const days = Math.floor(hours / 24);
+    const remHours = hours % 24;
+    return `${days}d ${remHours}h remaining`;
+  }
+  if (hours > 0) {
+    return `${hours}h ${minutes}m remaining`;
+  }
+  return `${minutes}m remaining`;
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/services/api.js
+--------------------------------------------------------------------------------
+import axios from 'axios';
+
+const API_BASE = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL.replace(/\/+$/, '')}` 
+  : '/api';
+
+const api = axios.create({
+  baseURL: API_BASE,
+  timeout: 120000 // 2 minutes for larger file uploads
+});
+
+/**
+ * Upload multiple files with real-time progress callback
+ */
+export async function uploadFiles(files, expiryHours = 24, onProgress) {
+  const formData = new FormData();
+  formData.append('expiryHours', expiryHours);
+
+  for (let i = 0; i < files.length; i++) {
+    formData.append('files', files[i]);
+  }
+
+  const response = await api.post('/upload', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    },
+    onUploadProgress: (progressEvent) => {
+      if (onProgress && progressEvent.total) {
+        const percentCompleted = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total
+        );
+        onProgress(percentCompleted, progressEvent.loaded, progressEvent.total);
+      }
+    }
+  });
+
+  return response.data;
+}
+
+/**
+ * Fetch sharing session info and file listing
+ */
+export async function getSession(token) {
+  const response = await api.get(`/session/${token}`);
+  return response.data;
+}
+
+/**
+ * Revoke/delete a sharing session
+ */
+export async function revokeSession(shareToken, revokeToken) {
+  const response = await api.post('/revoke', {
+    shareToken,
+    revokeToken
+  });
+  return response.data;
+}
+
+/**
+ * Get direct download URL for a specific file
+ */
+export function getSingleFileDownloadUrl(token, fileId) {
+  return `${API_BASE}/download/${token}/${fileId}`;
+}
+
+/**
+ * Get direct download URL for all files bundled as a ZIP
+ */
+export function getZipDownloadUrl(token) {
+  return `${API_BASE}/download-all/${token}`;
+}
+
+/**
+ * Health check
+ */
+export async function checkHealth() {
+  const response = await api.get('/health');
+  return response.data;
+}
+
+export default {
+  uploadFiles,
+  getSession,
+  revokeSession,
+  getSingleFileDownloadUrl,
+  getZipDownloadUrl,
+  checkHealth
+};
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/components/Navbar.jsx
+--------------------------------------------------------------------------------
+import React from 'react';
+import { Send, Shield, Zap } from 'lucide-react';
+
+export default function Navbar({ onReset, serverHealthy }) {
+  return (
+    <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-40">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <button
+          onClick={onReset}
+          className="flex items-center gap-2.5 text-left group transition-all"
+        >
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-rose-500 flex items-center justify-center text-white shadow-md shadow-rose-500/20 group-hover:scale-105 transition-transform">
+            <Send className="w-5 h-5 -rotate-12 translate-x-0.5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="font-bold text-lg text-slate-900 tracking-tight">QuickShare</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-200/60">
+                ₹0 Free
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 hidden sm:block">Fast, ephemeral & secure file sharing</p>
+          </div>
+        </button>
+
+        {/* Right Info Badges */}
+        <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-500 bg-slate-100/80 px-2.5 py-1.5 rounded-full border border-slate-200/60">
+            <Shield className="w-3.5 h-3.5 text-emerald-600" />
+            <span>End-to-end Ephemeral</span>
+          </div>
+
+          <div className="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border bg-slate-50 border-slate-200 text-slate-600">
+            <span
+              className={`w-2 h-2 rounded-full ${
+                serverHealthy === true
+                  ? 'bg-emerald-500 animate-pulse'
+                  : serverHealthy === false
+                  ? 'bg-amber-500'
+                  : 'bg-slate-400'
+              }`}
+            />
+            <span className="font-medium text-[11px]">
+              {serverHealthy === true ? 'Backend Ready' : serverHealthy === false ? 'Connecting...' : 'Checking'}
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/components/FileUploader.jsx
+--------------------------------------------------------------------------------
+import React, { useRef, useState } from 'react';
+import { UploadCloud, FolderPlus, AlertCircle, FilePlus2 } from 'lucide-react';
+
+const MAX_FILE_SIZE_MB = 50;
+const MAX_FILES_COUNT = 10;
+
+export default function FileUploader({ onFilesSelected, onError }) {
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const validateAndAddFiles = (incomingFiles) => {
+    if (!incomingFiles || incomingFiles.length === 0) return;
+
+    const fileList = Array.from(incomingFiles);
+
+    if (fileList.length > MAX_FILES_COUNT) {
+      onError(`You can only upload up to ${MAX_FILES_COUNT} files per session.`);
+      return;
+    }
+
+    const oversized = fileList.filter(
+      (f) => f.size > MAX_FILE_SIZE_MB * 1024 * 1024
+    );
+
+    if (oversized.length > 0) {
+      onError(
+        `File "${oversized[0].name}" exceeds the ${MAX_FILE_SIZE_MB}MB size limit.`
+      );
+      return;
+    }
+
+    onFilesSelected(fileList);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    validateAndAddFiles(e.dataTransfer.files);
+  };
+
+  const handleFileInputChange = (e) => {
+    validateAndAddFiles(e.target.files);
+    // Reset file input value so selecting the same file again triggers change
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  return (
+    <div
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      onClick={() => fileInputRef.current?.click()}
+      className={`relative border-2 border-dashed rounded-2xl p-8 sm:p-12 text-center cursor-pointer transition-all duration-200 select-none ${
+        isDragging
+          ? 'border-rose-500 bg-rose-50/50 scale-[1.01]'
+          : 'border-slate-300 hover:border-rose-400 bg-white hover:bg-slate-50/50 shadow-sm'
+      }`}
+    >
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileInputChange}
+        multiple
+        className="hidden"
+      />
+
+      <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-rose-50 flex items-center justify-center text-rose-500 shadow-sm group-hover:scale-110 transition-transform">
+        <UploadCloud className="w-8 h-8" />
+      </div>
+
+      <h3 className="text-lg sm:text-xl font-semibold text-slate-800 mb-1">
+        Drag & drop your files here
+      </h3>
+      <p className="text-sm text-slate-500 mb-5">
+        or <span className="text-rose-600 font-medium hover:underline">browse files</span> from your computer or phone
+      </p>
+
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100/90 text-xs font-medium text-slate-600">
+        <span>Up to {MAX_FILES_COUNT} files</span>
+        <span>•</span>
+        <span>Max {MAX_FILE_SIZE_MB}MB per file</span>
+      </div>
+    </div>
+  );
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/components/FileList.jsx
+--------------------------------------------------------------------------------
+import React from 'react';
+import {
+  FileText,
+  Image,
+  Film,
+  Music,
+  Archive,
+  File,
+  X,
+  Clock,
+  ArrowRight,
+  Loader2,
+  Trash2
+} from 'lucide-react';
+import { formatFileSize } from '../utils/formatters';
+
+function getFileIcon(filename) {
+  const ext = filename.split('.').pop()?.toLowerCase();
+  if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp'].includes(ext)) {
+    return <Image className="w-5 h-5 text-purple-500" />;
+  }
+  if (['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(ext)) {
+    return <Film className="w-5 h-5 text-blue-500" />;
+  }
+  if (['mp3', 'wav', 'ogg', 'm4a', 'flac'].includes(ext)) {
+    return <Music className="w-5 h-5 text-amber-500" />;
+  }
+  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) {
+    return <Archive className="w-5 h-5 text-yellow-600" />;
+  }
+  if (['pdf', 'doc', 'docx', 'txt', 'md', 'csv', 'xlsx'].includes(ext)) {
+    return <FileText className="w-5 h-5 text-rose-500" />;
+  }
+  return <File className="w-5 h-5 text-slate-400" />;
+}
+
+export default function FileList({
+  files,
+  onRemoveFile,
+  onClearFiles,
+  onUpload,
+  uploading,
+  uploadProgress,
+  expiryHours,
+  setExpiryHours
+}) {
+  const totalSizeBytes = files.reduce((acc, f) => acc + f.size, 0);
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-5 sm:p-6 transition-all">
+      {/* Header */}
+      <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+        <div>
+          <h4 className="font-semibold text-slate-800 text-base">
+            Selected Files ({files.length})
+          </h4>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Total size: <span className="font-medium text-slate-700">{formatFileSize(totalSizeBytes)}</span>
+          </p>
+        </div>
+
+        {!uploading && (
+          <button
+            onClick={onClearFiles}
+            className="text-xs text-slate-400 hover:text-rose-600 flex items-center gap-1 transition-colors px-2 py-1 rounded-md hover:bg-rose-50"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+            <span>Clear all</span>
+          </button>
+        )}
+      </div>
+
+      {/* List of files */}
+      <div className="max-h-64 overflow-y-auto divide-y divide-slate-100 my-3">
+        {files.map((file, index) => (
+          <div
+            key={`${file.name}-${index}`}
+            className="py-3 px-2 flex items-center justify-between hover:bg-slate-50/80 rounded-xl transition-colors group"
+          >
+            <div className="flex items-center gap-3 min-w-0 pr-3">
+              <div className="w-9 h-9 rounded-lg bg-slate-100 flex items-center justify-center shrink-0">
+                {getFileIcon(file.name)}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-slate-800 truncate" title={file.name}>
+                  {file.name}
+                </p>
+                <p className="text-xs text-slate-400 mt-0.5">
+                  {formatFileSize(file.size)}
+                </p>
+              </div>
+            </div>
+
+            {!uploading && (
+              <button
+                onClick={() => onRemoveFile(index)}
+                className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors shrink-0"
+                title="Remove file"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Expiry Selector */}
+      <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex items-center gap-2 text-xs text-slate-600">
+          <Clock className="w-4 h-4 text-slate-400" />
+          <span className="font-medium">Link expires in:</span>
+          <select
+            value={expiryHours}
+            onChange={(e) => setExpiryHours(Number(e.target.value))}
+            disabled={uploading}
+            className="bg-slate-50 border border-slate-200 text-slate-800 text-xs rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 transition-all cursor-pointer font-medium"
+          >
+            <option value={1}>1 hour</option>
+            <option value={6}>6 hours</option>
+            <option value={24}>24 hours (1 day)</option>
+            <option value={72}>3 days</option>
+            <option value={168}>7 days</option>
+          </select>
+        </div>
+
+        {/* Upload Button */}
+        {!uploading && (
+          <button
+            onClick={onUpload}
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white font-medium text-sm px-6 py-2.5 rounded-xl shadow-md shadow-rose-500/20 hover:shadow-lg hover:shadow-rose-500/30 active:scale-[0.99] transition-all"
+          >
+            <span>Create Share Link</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        )}
+      </div>
+
+      {/* Live Upload Progress */}
+      {uploading && (
+        <div className="mt-4 pt-4 border-t border-slate-100 space-y-2">
+          <div className="flex justify-between items-center text-xs font-medium text-slate-600">
+            <span className="flex items-center gap-1.5 text-rose-600">
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              <span>Uploading files...</span>
+            </span>
+            <span>{uploadProgress}%</span>
+          </div>
+
+          <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+            <div
+              className="bg-gradient-to-r from-rose-500 to-rose-600 h-2.5 rounded-full transition-all duration-200 ease-out"
+              style={{ width: `${uploadProgress}%` }}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/components/ShareResult.jsx
+--------------------------------------------------------------------------------
+import React, { useState } from 'react';
+import {
+  CheckCircle2,
+  Copy,
+  Check,
+  QrCode,
+  ShieldAlert,
+  ArrowRight,
+  Clock,
+  Layers,
+  HardDrive,
+  RotateCcw
+} from 'lucide-react';
+import { formatFileSize, formatTimeRemaining } from '../utils/formatters';
+
+export default function ShareResult({
+  result,
+  onReset,
+  onShowQR,
+  onRevoke
+}) {
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [copiedToken, setCopiedToken] = useState(false);
+  const [showRevokeConfirm, setShowRevokeConfirm] = useState(false);
+  const [revoking, setRevoking] = useState(false);
+
+  // Construct absolute download URL
+  const shareUrl = `${window.location.origin}${window.location.pathname}?token=${result.shareToken}`;
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2500);
+  };
+
+  const handleCopyRevokeToken = () => {
+    navigator.clipboard.writeText(result.revokeToken);
+    setCopiedToken(true);
+    setTimeout(() => setCopiedToken(false), 2500);
+  };
+
+  const handleConfirmRevoke = async () => {
+    setRevoking(true);
+    try {
+      await onRevoke(result.shareToken, result.revokeToken);
+    } finally {
+      setRevoking(false);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8 animate-fade-in space-y-6">
+      {/* Header Banner */}
+      <div className="flex items-center gap-3.5 pb-6 border-b border-slate-100">
+        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+          <CheckCircle2 className="w-6 h-6" />
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+            Files Ready to Share!
+          </h3>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Anyone with this link can download your files before expiry.
+          </p>
+        </div>
+      </div>
+
+      {/* Share Link Box */}
+      <div>
+        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+          Public Download Link
+        </label>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-mono text-slate-700 truncate select-all">
+            {shareUrl}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopyLink}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm transition-all"
+            >
+              {copiedLink ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
+            </button>
+
+            <button
+              onClick={() => onShowQR(shareUrl)}
+              className="inline-flex items-center justify-center p-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors"
+              title="Show QR Code for mobile"
+            >
+              <QrCode className="w-5 h-5 text-slate-600" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Session Metadata Grid */}
+      <div className="grid grid-cols-3 gap-3 p-4 bg-slate-50/80 rounded-2xl border border-slate-100">
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <Layers className="w-3.5 h-3.5 text-slate-400" />
+            <span>Files</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800">
+            {result.fileCount} {result.fileCount === 1 ? 'file' : 'files'}
+          </p>
+        </div>
+
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <HardDrive className="w-3.5 h-3.5 text-slate-400" />
+            <span>Total Size</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800">
+            {formatFileSize(result.totalSizeBytes)}
+          </p>
+        </div>
+
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <Clock className="w-3.5 h-3.5 text-rose-500" />
+            <span>Expires</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800 truncate" title={new Date(result.expiresAt).toLocaleString()}>
+            {formatTimeRemaining(result.expiresAt)}
+          </p>
+        </div>
+      </div>
+
+      {/* Owner Control Section: Revocation */}
+      <div className="p-4 rounded-2xl border border-amber-200/80 bg-amber-50/40">
+        <div className="flex items-start gap-3">
+          <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <h4 className="text-xs font-bold text-amber-900 uppercase tracking-wide">
+              Owner Management & Revocation
+            </h4>
+            <p className="text-xs text-amber-800/80 mt-1">
+              Want to delete these files early? Only you have the revocation key below:
+            </p>
+
+            <div className="mt-2.5 flex items-center gap-2">
+              <span className="font-mono text-[11px] bg-white border border-amber-200 text-amber-950 px-2 py-1 rounded-lg truncate select-all flex-1">
+                {result.revokeToken}
+              </span>
+              <button
+                onClick={handleCopyRevokeToken}
+                className="text-xs text-amber-700 hover:text-amber-900 px-2 py-1 bg-amber-100 hover:bg-amber-200 rounded-lg transition-colors flex items-center gap-1 font-medium"
+                title="Copy Revoke Token"
+              >
+                {copiedToken ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedToken ? 'Copied' : 'Copy'}</span>
+              </button>
+            </div>
+
+            {!showRevokeConfirm ? (
+              <button
+                onClick={() => setShowRevokeConfirm(true)}
+                className="mt-3 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:underline"
+              >
+                Revoke this link & delete files now
+              </button>
+            ) : (
+              <div className="mt-3 p-3 bg-white border border-rose-200 rounded-xl">
+                <p className="text-xs text-rose-700 font-medium mb-2">
+                  Are you sure? Files will be deleted from storage immediately and the download link will stop working.
+                </p>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleConfirmRevoke}
+                    disabled={revoking}
+                    className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium transition-colors"
+                  >
+                    {revoking ? 'Deleting...' : 'Yes, Delete Now'}
+                  </button>
+                  <button
+                    onClick={() => setShowRevokeConfirm(false)}
+                    disabled={revoking}
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-medium transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Reset / Share More Button */}
+      <div className="pt-2 text-center">
+        <button
+          onClick={onReset}
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-rose-600 transition-colors"
+        >
+          <RotateCcw className="w-4 h-4" />
+          <span>Upload and share more files</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/components/QRCodeModal.jsx
+--------------------------------------------------------------------------------
+import React from 'react';
+import { QRCodeSVG } from 'qrcode.react';
+import { X, Smartphone, ExternalLink } from 'lucide-react';
+
+export default function QRCodeModal({ url, onClose }) {
+  if (!url) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm animate-fade-in">
+      <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-slate-100 text-center relative">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-100 transition-colors"
+        >
+          <X className="w-5 h-5" />
+        </button>
+
+        <div className="w-12 h-12 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <Smartphone className="w-6 h-6" />
+        </div>
+
+        <h3 className="text-lg font-bold text-slate-900 mb-1">
+          Scan to Download
+        </h3>
+        <p className="text-xs text-slate-500 mb-6 px-2">
+          Point your phone camera at this QR code to open the download link instantly.
+        </p>
+
+        {/* QR Code Container */}
+        <div className="bg-slate-50 p-5 rounded-2xl inline-block border border-slate-200/60 shadow-inner mb-6">
+          <QRCodeSVG
+            value={url}
+            size={200}
+            level="M"
+            includeMargin={false}
+          />
+        </div>
+
+        <div className="bg-slate-50 border border-slate-200/80 rounded-xl p-3 flex items-center justify-between text-left">
+          <p className="text-xs text-slate-600 truncate font-mono select-all pr-2">
+            {url}
+          </p>
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-rose-600 hover:text-rose-700 p-1 rounded-md shrink-0"
+            title="Open in new tab"
+          >
+            <ExternalLink className="w-4 h-4" />
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/components/DownloadView.jsx
+--------------------------------------------------------------------------------
+import React, { useEffect, useState } from 'react';
+import {
+  Download,
+  FolderArchive,
+  Clock,
+  Layers,
+  HardDrive,
+  AlertTriangle,
+  FileQuestion,
+  Loader2,
+  FileText,
+  Image,
+  Film,
+  Music,
+  Archive,
+  File,
+  ArrowLeft,
+  CheckCircle2
+} from 'lucide-react';
+import {
+  getSession,
+  getSingleFileDownloadUrl,
+  getZipDownloadUrl
+} from '../services/api';
+import { formatFileSize, formatTimeRemaining } from '../utils/formatters';
+
+function getFileIcon(filename) {
+  const ext = filename.split('.').pop()?.toLowerCase();
+  if (['png', 'jpg', 'jpeg', 'gif', 'svg', 'webp'].includes(ext)) {
+    return <Image className="w-5 h-5 text-purple-500" />;
+  }
+  if (['mp4', 'mov', 'avi', 'mkv', 'webm'].includes(ext)) {
+    return <Film className="w-5 h-5 text-blue-500" />;
+  }
+  if (['mp3', 'wav', 'ogg', 'm4a', 'flac'].includes(ext)) {
+    return <Music className="w-5 h-5 text-amber-500" />;
+  }
+  if (['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)) {
+    return <Archive className="w-5 h-5 text-yellow-600" />;
+  }
+  if (['pdf', 'doc', 'docx', 'txt', 'md', 'csv', 'xlsx'].includes(ext)) {
+    return <FileText className="w-5 h-5 text-rose-500" />;
+  }
+  return <File className="w-5 h-5 text-slate-400" />;
+}
+
+export default function DownloadView({ token, onBackToUpload }) {
+  const [loading, setLoading] = useState(true);
+  const [session, setSession] = useState(null);
+  const [files, setFiles] = useState([]);
+  const [errorStatus, setErrorStatus] = useState(null); // 'expired' | 'revoked' | 'notfound' | message
+
+  useEffect(() => {
+    async function fetchSession() {
+      if (!token) return;
+      setLoading(true);
+      setErrorStatus(null);
+      try {
+        const data = await getSession(token);
+        if (data.success) {
+          setSession(data.session);
+          setFiles(data.files);
+        } else {
+          setErrorStatus('notfound');
+        }
+      } catch (err) {
+        if (err.response) {
+          if (err.response.data?.isRevoked) {
+            setErrorStatus('revoked');
+          } else if (err.response.data?.isExpired) {
+            setErrorStatus('expired');
+          } else if (err.response.status === 404) {
+            setErrorStatus('notfound');
+          } else {
+            setErrorStatus(err.response.data?.error || 'Failed to load file session.');
+          }
+        } else {
+          setErrorStatus('Network error connecting to QuickShare server.');
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchSession();
+  }, [token]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-12 text-center animate-fade-in">
+        <Loader2 className="w-10 h-10 text-rose-600 animate-spin mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-slate-800">
+          Fetching shared files...
+        </h3>
+        <p className="text-xs text-slate-400 mt-1">Please wait a moment</p>
+      </div>
+    );
+  }
+
+  // Error: Expired or Revoked or Not Found
+  if (errorStatus) {
+    let title = 'File Unavailable';
+    let description = 'This sharing session could not be found.';
+    let icon = <FileQuestion className="w-8 h-8 text-slate-400" />;
+    let iconBg = 'bg-slate-100';
+
+    if (errorStatus === 'revoked') {
+      title = 'Link Revoked';
+      description = 'The owner of these files has cancelled the sharing link and deleted the files.';
+      icon = <AlertTriangle className="w-8 h-8 text-amber-500" />;
+      iconBg = 'bg-amber-50';
+    } else if (errorStatus === 'expired') {
+      title = 'Link Expired';
+      description = 'This sharing link has passed its expiration time and files were safely removed.';
+      icon = <Clock className="w-8 h-8 text-rose-500" />;
+      iconBg = 'bg-rose-50';
+    } else if (typeof errorStatus === 'string' && errorStatus !== 'notfound') {
+      description = errorStatus;
+    }
+
+    return (
+      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-8 sm:p-10 text-center animate-fade-in max-w-md mx-auto">
+        <div className={`w-16 h-16 ${iconBg} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
+          {icon}
+        </div>
+        <h3 className="text-xl font-bold text-slate-800 mb-2">{title}</h3>
+        <p className="text-sm text-slate-500 mb-6">{description}</p>
+        <button
+          onClick={onBackToUpload}
+          className="inline-flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-medium text-xs sm:text-sm px-5 py-2.5 rounded-xl transition-all shadow-sm"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Upload your own files</span>
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8 animate-fade-in space-y-6">
+      {/* Top Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-100">
+        <div>
+          <span className="text-xs font-semibold text-rose-600 bg-rose-50 px-2.5 py-1 rounded-full border border-rose-100 mb-2 inline-block">
+            QuickShare Transfer
+          </span>
+          <h2 className="text-2xl font-bold text-slate-900">
+            {files.length === 1 ? '1 File Ready to Download' : `${files.length} Files Ready to Download`}
+          </h2>
+          <p className="text-xs text-slate-500 mt-1">
+            Available until {new Date(session.expiresAt).toLocaleDateString()} ({formatTimeRemaining(session.expiresAt)})
+          </p>
+        </div>
+
+        {/* Primary Download All Action if multiple files */}
+        {files.length > 1 && (
+          <a
+            href={getZipDownloadUrl(token)}
+            download
+            className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-600 to-rose-500 hover:from-rose-700 hover:to-rose-600 text-white font-medium text-sm px-5 py-2.5 rounded-xl shadow-md shadow-rose-500/20 hover:shadow-lg transition-all active:scale-[0.99]"
+          >
+            <FolderArchive className="w-4 h-4" />
+            <span>Download All as ZIP</span>
+          </a>
+        )}
+      </div>
+
+      {/* Summary statistics */}
+      <div className="grid grid-cols-3 gap-3 p-4 bg-slate-50/80 rounded-2xl border border-slate-100">
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <Layers className="w-3.5 h-3.5 text-slate-400" />
+            <span>Files</span>
+          </div>
+          <p className="text-sm sm:base font-bold text-slate-800">
+            {files.length}
+          </p>
+        </div>
+
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <HardDrive className="w-3.5 h-3.5 text-slate-400" />
+            <span>Total Size</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800">
+            {formatFileSize(session.totalSizeBytes)}
+          </p>
+        </div>
+
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <Clock className="w-3.5 h-3.5 text-rose-500" />
+            <span>Expires</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800 truncate">
+            {formatTimeRemaining(session.expiresAt)}
+          </p>
+        </div>
+      </div>
+
+      {/* Files List */}
+      <div>
+        <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
+          Files in this session
+        </h4>
+        <div className="divide-y divide-slate-100 border border-slate-200/80 rounded-2xl overflow-hidden">
+          {files.map((file) => (
+            <div
+              key={file.id}
+              className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
+            >
+              <div className="flex items-center gap-3.5 min-w-0 pr-4">
+                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+                  {getFileIcon(file.name)}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-slate-800 truncate" title={file.name}>
+                    {file.name}
+                  </p>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    {formatFileSize(file.size)}
+                  </p>
+                </div>
+              </div>
+
+              <a
+                href={getSingleFileDownloadUrl(token, file.id)}
+                download={file.name}
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-700 hover:text-rose-600 text-xs font-semibold transition-colors shrink-0"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Download</span>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom Link to Send files */}
+      <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+        <button
+          onClick={onBackToUpload}
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-slate-800 transition-colors"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Upload files</span>
+        </button>
+
+        <span className="text-xs text-slate-400">
+          Powered by QuickShare
+        </span>
+      </div>
+    </div>
+  );
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/App.jsx
+--------------------------------------------------------------------------------
+import React, { useState, useEffect } from 'react';
+import Navbar from './components/Navbar';
+import FileUploader from './components/FileUploader';
+import FileList from './components/FileList';
+import ShareResult from './components/ShareResult';
+import DownloadView from './components/DownloadView';
+import QRCodeModal from './components/QRCodeModal';
+import { uploadFiles, revokeSession, checkHealth } from './services/api';
+import { AlertCircle, CheckCircle, ShieldCheck, Zap, Lock, RefreshCw } from 'lucide-react';
+
+export default function App() {
+  const [tokenParam, setTokenParam] = useState(null);
+  const [files, setFiles] = useState([]);
+  const [expiryHours, setExpiryHours] = useState(24);
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [shareResult, setShareResult] = useState(null);
+  const [qrModalUrl, setQrModalUrl] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [successNotification, setSuccessNotification] = useState(null);
+  const [serverHealthy, setServerHealthy] = useState(null);
+
+  // Check URL query parameters for token (e.g. ?token=abc)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    if (token) {
+      setTokenParam(token);
+    }
+
+    // Health check
+    async function verifyBackend() {
+      try {
+        const res = await checkHealth();
+        if (res.status === 'ok') {
+          setServerHealthy(true);
+        } else {
+          setServerHealthy(false);
+        }
+      } catch (err) {
+        setServerHealthy(false);
+      }
+    }
+    verifyBackend();
+  }, []);
+
+  // Clear notifications after timeout
+  useEffect(() => {
+    if (errorMessage) {
+      const timer = setTimeout(() => setErrorMessage(null), 6000);
+      return () => clearTimeout(timer);
+    }
+  }, [errorMessage]);
+
+  useEffect(() => {
+    if (successNotification) {
+      const timer = setTimeout(() => setSuccessNotification(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [successNotification]);
+
+  const handleFilesSelected = (newFiles) => {
+    setErrorMessage(null);
+    setFiles((prev) => {
+      // Append without duplicate filenames
+      const existingNames = new Set(prev.map((f) => f.name));
+      const filtered = newFiles.filter((f) => !existingNames.has(f.name));
+      return [...prev, ...filtered];
+    });
+  };
+
+  const handleRemoveFile = (index) => {
+    setFiles((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleClearFiles = () => {
+    setFiles([]);
+    setErrorMessage(null);
+  };
+
+  const handleUpload = async () => {
+    if (files.length === 0) return;
+    setUploading(true);
+    setUploadProgress(0);
+    setErrorMessage(null);
+
+    try {
+      const result = await uploadFiles(files, expiryHours, (progress) => {
+        setUploadProgress(progress);
+      });
+
+      if (result.success) {
+        setShareResult(result);
+        setFiles([]);
+      } else {
+        setErrorMessage(result.error || 'Failed to upload files.');
+      }
+    } catch (err) {
+      const msg = err.response?.data?.error || err.message || 'Error uploading files.';
+      setErrorMessage(msg);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleRevoke = async (shareToken, revokeToken) => {
+    try {
+      const res = await revokeSession(shareToken, revokeToken);
+      if (res.success) {
+        setSuccessNotification('Sharing session has been revoked and files deleted.');
+        setShareResult(null);
+      }
+    } catch (err) {
+      setErrorMessage(err.response?.data?.error || 'Failed to revoke session.');
+    }
+  };
+
+  const handleResetToUpload = () => {
+    // Clear URL query param if present
+    const url = new URL(window.location.href);
+    url.searchParams.delete('token');
+    window.history.pushState({}, '', url.pathname);
+
+    setTokenParam(null);
+    setShareResult(null);
+    setFiles([]);
+    setErrorMessage(null);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 via-slate-50 to-slate-100">
+      {/* Navigation */}
+      <Navbar onReset={handleResetToUpload} serverHealthy={serverHealthy} />
+
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-2xl w-full mx-auto px-4 py-8 sm:py-12 flex flex-col justify-center">
+        {/* Alerts / Notifications */}
+        {errorMessage && (
+          <div className="mb-6 p-4 rounded-2xl bg-rose-50 border border-rose-200/90 text-rose-700 flex items-start gap-3 shadow-sm animate-fade-in">
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5 text-rose-600" />
+            <div className="text-xs sm:text-sm font-medium flex-1">{errorMessage}</div>
+            <button
+              onClick={() => setErrorMessage(null)}
+              className="text-rose-400 hover:text-rose-700 text-xs font-bold"
+            >
+              ✕
+            </button>
+          </div>
+        )}
+
+        {successNotification && (
+          <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 flex items-start gap-3 shadow-sm animate-fade-in">
+            <CheckCircle className="w-5 h-5 shrink-0 mt-0.5 text-emerald-600" />
+            <div className="text-xs sm:text-sm font-medium flex-1">{successNotification}</div>
+          </div>
+        )}
+
+        {/* View Switch: Receiver (DownloadView) vs Sender (Upload/ShareResult) */}
+        {tokenParam ? (
+          <DownloadView
+            token={tokenParam}
+            onBackToUpload={handleResetToUpload}
+          />
+        ) : shareResult ? (
+          <ShareResult
+            result={shareResult}
+            onReset={handleResetToUpload}
+            onShowQR={(url) => setQrModalUrl(url)}
+            onRevoke={handleRevoke}
+          />
+        ) : (
+          <div className="space-y-6 animate-fade-in">
+            {/* Header intro */}
+            <div className="text-center space-y-2 mb-2">
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                Send files instantly.
+              </h1>
+              <p className="text-sm sm:text-base text-slate-500 max-w-md mx-auto">
+                No account required. Auto-expires automatically. ₹0 free ephemeral file sharing.
+              </p>
+            </div>
+
+            {/* Drag & drop upload area */}
+            <FileUploader
+              onFilesSelected={handleFilesSelected}
+              onError={(msg) => setErrorMessage(msg)}
+            />
+
+            {/* Selected files list & controls */}
+            {files.length > 0 && (
+              <FileList
+                files={files}
+                onRemoveFile={handleRemoveFile}
+                onClearFiles={handleClearFiles}
+                onUpload={handleUpload}
+                uploading={uploading}
+                uploadProgress={uploadProgress}
+                expiryHours={expiryHours}
+                setExpiryHours={setExpiryHours}
+              />
+            )}
+
+            {/* Feature Highlights */}
+            {files.length === 0 && (
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-6">
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+                    <Zap className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h5 className="text-xs font-bold text-slate-800">Lightning Fast</h5>
+                    <p className="text-[11px] text-slate-500">Direct streaming transfer</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                    <Lock className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h5 className="text-xs font-bold text-slate-800">Private & Secure</h5>
+                    <p className="text-[11px] text-slate-500">Cryptographic tokens</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+                    <ShieldCheck className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <h5 className="text-xs font-bold text-slate-800">Auto Cleanup</h5>
+                    <p className="text-[11px] text-slate-500">Deletes after expiration</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </main>
+
+      {/* QR Code Modal */}
+      {qrModalUrl && (
+        <QRCodeModal
+          url={qrModalUrl}
+          onClose={() => setQrModalUrl(null)}
+        />
+      )}
+
+      {/* Footer */}
+      <footer className="py-6 border-t border-slate-200/80 bg-white/60 text-center text-xs text-slate-400">
+        <p>QuickShare • Free & Open Source Ephemeral File Sharing</p>
+      </footer>
+    </div>
+  );
+}
+
+
+--------------------------------------------------------------------------------
+FILE: frontend/src/main.jsx
+--------------------------------------------------------------------------------
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App.jsx';
+import './index.css';
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+
+================================================================================
+PHASE 7: LOCAL DEVELOPMENT GUIDE (XAMPP MYSQL SETUP)
+================================================================================
+1. Start XAMPP MySQL:
+   - Open XAMPP Control Panel.
+   - Start the MySQL service (running on port 3306).
+
+2. Clone or Enter Project Folder:
    cd C:\Users\deviv\OneDrive\Desktop\share
 
-2. Initialize Git repository:
-   git init
-
-3. Create root .gitignore:
-   File: .gitignore
-   -----------------------------------------------------------------------------
-   node_modules/
-   dist/
-   build/
-   .env
-   .env.local
-   .env.*.local
-   logs/
-   *.log
-   backend/uploads/*
-   !backend/uploads/.gitkeep
-   tools/
-   Thumbs.db
-   .DS_Store
-   -----------------------------------------------------------------------------
-
-4. Create root package.json for project orchestration:
-   File: package.json
-   -----------------------------------------------------------------------------
-   {
-     "name": "quickshare-project",
-     "version": "1.0.0",
-     "description": "QuickShare - Complete Free File Sharing Solution",
-     "private": true,
-     "scripts": {
-       "backend": "npm --prefix backend run dev",
-       "frontend": "npm --prefix frontend run dev",
-       "backend:test": "npm --prefix backend test",
-       "frontend:build": "npm --prefix frontend run build",
-       "migrate": "npm --prefix backend run migrate"
-     }
-   }
-   -----------------------------------------------------------------------------
-
-
-================================================================================
-4. STEP 2: DATABASE SCHEMA & MIGRATION SCRIPT
-================================================================================
-1. Create SQL Schema File:
-   File: backend/database/schema.sql
-   -----------------------------------------------------------------------------
-   CREATE DATABASE IF NOT EXISTS quickshare_db
-     CHARACTER SET utf8mb4
-     COLLATE utf8mb4_unicode_ci;
-
-   USE quickshare_db;
-
-   CREATE TABLE IF NOT EXISTS share_sessions (
-     id INT AUTO_INCREMENT PRIMARY KEY,
-     share_token VARCHAR(64) NOT NULL UNIQUE,
-     revoke_token VARCHAR(64) NOT NULL,
-     total_size_bytes BIGINT NOT NULL DEFAULT 0,
-     file_count INT NOT NULL DEFAULT 1,
-     expires_at DATETIME NOT NULL,
-     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     is_revoked TINYINT(1) NOT NULL DEFAULT 0,
-     download_count INT NOT NULL DEFAULT 0,
-     INDEX idx_share_token (share_token),
-     INDEX idx_expires_at (expires_at),
-     INDEX idx_is_revoked (is_revoked)
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-   CREATE TABLE IF NOT EXISTS share_files (
-     id INT AUTO_INCREMENT PRIMARY KEY,
-     session_id INT NOT NULL,
-     original_name VARCHAR(255) NOT NULL,
-     stored_name VARCHAR(255) NOT NULL,
-     file_path VARCHAR(500) NOT NULL,
-     file_size BIGINT NOT NULL,
-     mime_type VARCHAR(127) NOT NULL DEFAULT 'application/octet-stream',
-     storage_driver VARCHAR(32) NOT NULL DEFAULT 'local',
-     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     INDEX idx_session_id (session_id),
-     CONSTRAINT fk_session_files FOREIGN KEY (session_id) 
-       REFERENCES share_sessions (id) ON DELETE CASCADE
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-   -----------------------------------------------------------------------------
-
-2. Create Automated Migration Runner:
-   File: backend/database/migrate.js
-   -----------------------------------------------------------------------------
-   import fs from 'fs';
-   import path from 'path';
-   import { fileURLToPath } from 'url';
-   import mysql from 'mysql2/promise';
-   import dotenv from 'dotenv';
-
-   dotenv.config();
-
-   const __filename = fileURLToPath(import.meta.url);
-   const __dirname = path.dirname(__filename);
-
-   async function runMigration() {
-     const isUrlConfig = Boolean(process.env.DATABASE_URL);
-     let connection;
-
-     try {
-       if (isUrlConfig) {
-         connection = await mysql.createConnection({
-           uri: process.env.DATABASE_URL,
-           multipleStatements: true,
-           ssl: process.env.DATABASE_URL.includes('ssl=') ? undefined : { rejectUnauthorized: false }
-         });
-         console.log('Connected using DATABASE_URL.');
-       } else {
-         connection = await mysql.createConnection({
-           host: process.env.DB_HOST || '127.0.0.1',
-           port: Number(process.env.DB_PORT) || 3306,
-           user: process.env.DB_USER || 'root',
-           password: process.env.DB_PASSWORD || '',
-           multipleStatements: true
-         });
-         console.log(`Connected to MySQL server at ${process.env.DB_HOST || '127.0.0.1'}:${process.env.DB_PORT || 3306}`);
-       }
-
-       const schemaPath = path.join(__dirname, 'schema.sql');
-       const sql = fs.readFileSync(schemaPath, 'utf8');
-
-       console.log('Executing database migrations...');
-       await connection.query(sql);
-       console.log('Migration completed successfully.');
-
-       await connection.end();
-       process.exit(0);
-     } catch (err) {
-       console.error('Migration failed:', err);
-       if (connection) await connection.end();
-       process.exit(1);
-     }
-   }
-
-   runMigration();
-   -----------------------------------------------------------------------------
-
-
-================================================================================
-5. STEP 3: BACKEND IMPLEMENTATION (EXPRESS + MYSQL2 + MULTER + S3)
-================================================================================
-1. Backend dependencies (backend/package.json):
-   -----------------------------------------------------------------------------
-   {
-     "name": "quickshare-backend",
-     "version": "1.0.0",
-     "description": "Backend API for QuickShare file-sharing service",
-     "main": "src/server.js",
-     "type": "module",
-     "scripts": {
-       "start": "node src/server.js",
-       "dev": "node --watch src/server.js",
-       "migrate": "node database/migrate.js",
-       "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --detectOpenHandles"
-     },
-     "dependencies": {
-       "@aws-sdk/client-s3": "^3.750.0",
-       "@aws-sdk/lib-storage": "^3.750.0",
-       "archiver": "^7.0.1",
-       "cors": "^2.8.5",
-       "dotenv": "^16.4.7",
-       "express": "^4.21.2",
-       "express-rate-limit": "^7.5.0",
-       "helmet": "^8.0.0",
-       "mime-types": "^2.1.35",
-       "multer": "^1.4.5-lts.1",
-       "mysql2": "^3.12.0",
-       "node-cron": "^3.0.3"
-     },
-     "devDependencies": {
-       "jest": "^29.7.0",
-       "supertest": "^7.0.0"
-     }
-   }
-   -----------------------------------------------------------------------------
-
-2. Environment Config (backend/.env):
-   -----------------------------------------------------------------------------
-   PORT=5050
-   NODE_ENV=development
-   FRONTEND_URL=http://localhost:5180
-
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_USER=root
-   DB_PASSWORD=
-   DB_NAME=quickshare_db
-
-   STORAGE_DRIVER=local
-   UPLOAD_DIR=./uploads
-   MAX_FILE_SIZE_MB=50
-   MAX_FILES_COUNT=10
-   DEFAULT_EXPIRY_HOURS=24
-   CLEANUP_CRON_SCHEDULE=*/15 * * * *
-   -----------------------------------------------------------------------------
-
-3. Database Pool (backend/src/config/db.js):
-   - Uses mysql2/promise with connection pooling.
-   - Automatically supports DATABASE_URL (for Cloud TiDB) and individual params.
-   - Enables SSL for cloud hosted MySQL automatically.
-
-4. File Security Utility (backend/src/utils/fileSecurity.js):
-   - generateShareToken(): crypto.randomBytes(16).toString('hex') -> 32 hex chars.
-   - generateRevokeToken(): crypto.randomBytes(24).toString('hex') -> 48 hex chars.
-   - sanitizeFilename(): Strips null bytes, path traversal "../", invalid control chars.
-   - generateStoredFilename(): Unique random hash with safe extension.
-
-5. Storage Service (backend/src/services/storageService.js):
-   - Seamless pluggable storage:
-     * When STORAGE_DRIVER='local': Uses disk storage in ./uploads with resolveSafePath traversal protection.
-     * When STORAGE_DRIVER='s3': Connects to Supabase / Cloudflare R2 / AWS S3 using @aws-sdk/client-s3 with PutObject, GetObject, DeleteObject commands.
-
-6. Auto Cleanup Service (backend/src/services/cleanupService.js):
-   - Runs every 15 minutes via node-cron (and on server boot).
-   - Queries sessions where expires_at < NOW() or is_revoked = 1.
-   - Deletes files physically from disk or S3 bucket.
-   - Deletes database session records with cascading foreign key deletion.
-
-7. Middleware:
-   - Rate Limiter (backend/src/middleware/rateLimiter.js):
-     * apiLimiter: 300 req/15min.
-     * uploadLimiter: 30 uploads/15min per IP.
-     * downloadLimiter: 120 downloads/15min per IP.
-   - Upload (backend/src/middleware/upload.js):
-     * Multer disk storage, 50MB per file, max 10 files.
-     * Blocks dangerous executables (.exe, .bat, .cmd, .sh, .vbs, .php, etc.).
-   - Error Handler (backend/src/middleware/errorHandler.js):
-     * Handles Multer errors (LIMIT_FILE_SIZE, LIMIT_FILE_COUNT), path traversal, and generic errors.
-
-8. Controller (backend/src/controllers/shareController.js):
-   - createShareSession: Validates files, generates tokens, inserts session and file records in a transaction, persists to S3 if configured.
-   - getShareSession: Retrieves public metadata, checks expiry and revocation, hides internal stored names.
-   - downloadSingleFile: Streams file with Content-Disposition: attachment, Content-Type, and nosniff headers.
-   - downloadAllFiles: Dynamically creates and streams a compressed .zip archive using archiver directly to HTTP response.
-   - revokeShareSession: Validates revokeToken against database, deletes physical files immediately, marks is_revoked = 1.
-
-9. Routes (backend/src/routes/shareRoutes.js):
-   - GET  /api/health
-   - POST /api/upload
-   - GET  /api/session/:token
-   - GET  /api/download/:token/:fileId
-   - GET  /api/download-all/:token
-   - POST /api/revoke
-
-10. Express App & Server (backend/src/app.js & backend/src/server.js):
-    - Configures Helmet headers, CORS allowing localhost, LAN, *.vercel.app, *.onrender.com.
-    - Listens on 0.0.0.0 (all network interfaces).
-
-
-================================================================================
-6. STEP 4: BACKEND AUTOMATED INTEGRATION TESTS (JEST + SUPERTEST)
-================================================================================
-File: backend/tests/api.test.js
-Covers 12 automated test cases:
-1. Health check returns 200 and database connected.
-2. Rejection of uploads with 0 files.
-3. Successful upload of a single text file.
-4. Successful upload of multiple files in a single session.
-5. Session retrieval using public share token.
-6. 404 response for invalid share tokens.
-7. File download with exact binary content and attachment headers.
-8. Download all files bundled as a valid ZIP archive.
-9. Unauthorized revocation attempt rejected with 403 Forbidden.
-10. Authorized owner revocation succeeds using revoke token.
-11. Subsequent session retrieval returns 410 Gone (revoked).
-12. Subsequent downloads return 410 Gone.
-
-Run tests:
-cd backend
-npm test
-Result: 12 passed, 12 total in 1.42 seconds!
-
-
-================================================================================
-7. STEP 5: FRONTEND IMPLEMENTATION (REACT + VITE + TAILWIND CSS)
-================================================================================
-1. Frontend dependencies (frontend/package.json):
-   -----------------------------------------------------------------------------
-   {
-     "name": "quickshare-frontend",
-     "private": true,
-     "version": "1.0.0",
-     "type": "module",
-     "scripts": {
-       "dev": "vite --host",
-       "build": "vite build",
-       "preview": "vite preview"
-     },
-     "dependencies": {
-       "axios": "^1.7.9",
-       "lucide-react": "^0.475.0",
-       "qrcode.react": "^4.2.0",
-       "react": "^18.3.1",
-       "react-dom": "^18.3.1"
-     },
-     "devDependencies": {
-       "@types/react": "^18.3.18",
-       "@types/react-dom": "^18.3.5",
-       "@vitejs/plugin-react": "^4.3.4",
-       "autoprefixer": "^10.4.20",
-       "postcss": "^8.5.1",
-       "tailwindcss": "^3.4.17",
-       "vite": "^6.1.0"
-     }
-   }
-   -----------------------------------------------------------------------------
-
-2. Vite Config (frontend/vite.config.js):
-   - Sets server.host: true (0.0.0.0).
-   - Dedicated port: 5180 with strictPort: true.
-   - allowedHosts: true (allows external mobile and Cloudflare tunnel hosts).
-   - Reverse proxy /api to http://localhost:5050.
-
-3. Vercel SPA Config (frontend/vercel.json):
-   - Configures rewrites: [{ "source": "/(.*)", "destination": "/index.html" }]
-
-4. Key Components:
-   - Navbar.jsx: Brand header, ₹0 Free badge, and backend connection indicator.
-   - FileUploader.jsx: Drag-and-drop dropzone with file picker and size validation.
-   - FileList.jsx: Lists selected files with extensions icons, size calculation, expiration selector (1h to 7d), and live upload progress bar.
-   - ShareResult.jsx: One-click link copy, QR code modal trigger, and owner revocation panel.
-   - QRCodeModal.jsx: Renders SVG QR code for mobile smartphone scanning.
-   - DownloadView.jsx: Receiver interface showing session info, expiration countdown, individual file download buttons, and "Download All as ZIP".
-   - api.js: Axios service with onUploadProgress callback.
-   - formatters.js: Human-readable file size and remaining time calculator.
-
-
-================================================================================
-8. STEP 6: LOCAL RUNNING & MULTI-DEVICE TESTING (XAMPP MYSQL)
-================================================================================
-1. Start XAMPP:
-   - Open XAMPP Control Panel.
-   - Start the MySQL service on port 3306.
-
-2. Run Database Migration:
+3. Install Backend Dependencies:
    cd backend
-   npm run migrate
+   npm install
 
-3. Start Backend:
+4. Run Database Migration:
+   npm run migrate
+   (Creates quickshare_db and tables in your local MySQL).
+
+5. Install Frontend Dependencies:
+   cd ../frontend
+   npm install
+
+6. Start the Application:
+   # Terminal 1: Backend
    cd backend
    npm run dev
-   (Listening on http://0.0.0.0:5050)
+   # (Backend starts on http://0.0.0.0:5050)
 
-4. Start Frontend:
+   # Terminal 2: Frontend
    cd frontend
    npm run dev
-   (Listening on http://0.0.0.0:5180)
+   # (Frontend starts on http://0.0.0.0:5180)
 
-5. Open Browser:
-   - Laptop: http://localhost:5180/
-   - Same Wi-Fi: http://<YOUR_LOCAL_IP>:5180/
+7. Access the App:
+   - On your laptop: http://localhost:5180/
+   - On another device on same Wi-Fi: http://<LAN_IP>:5180/
 
 
 ================================================================================
-9. STEP 7: HOTSPOT & WORLDWIDE TUNNEL ACCESS (CLOUDFLARE TUNNEL)
+PHASE 8: MULTI-DEVICE TESTING & AP ISOLATION BYPASS (CLOUDFLARE TUNNEL)
 ================================================================================
-When connected to a mobile phone hotspot, phones enforce AP/Client Isolation, 
-blocking local IP access between devices. Cloudflare Tunnel bypasses this completely:
+If testing on a smartphone hotspot, mobile phones isolate connected devices 
+from each other by default (AP Isolation). To bypass this and test across any
+device anywhere in the world:
 
-1. Download standalone cloudflared binary to tools/cloudflared.exe:
+1. Download standalone cloudflared executable:
+   mkdir tools
    Invoke-WebRequest -Uri "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe" -OutFile "tools\cloudflared.exe"
 
-2. Start the tunnel to your local frontend:
+2. Start the Cloudflare Edge Tunnel:
    .\tools\cloudflared.exe tunnel --url http://localhost:5180
 
-3. Cloudflare gives a free, live HTTPS URL (e.g. https://<name>.trycloudflare.com).
-   Anyone on any phone or network worldwide can open it with zero passwords or setup!
+3. Cloudflare will output a public HTTPS address:
+   https://<unique-name>.trycloudflare.com
+
+4. Open that address on ANY smartphone, tablet, or cellular data connection.
+   Upload files from mobile, and download them on your laptop instantly!
 
 
 ================================================================================
-10. STEP 8: PUSHING REPOSITORY TO GITHUB
+PHASE 9: GITHUB VERSION CONTROL SETUP & PUSH
 ================================================================================
-1. Create a repository on GitHub (e.g. https://github.com/<username>/quickshare).
-2. Configure Git:
-   git remote add origin https://github.com/<username>/quickshare.git
+1. Create a new repository on GitHub:
+   https://github.com/new
+   (Repository name: quickshare)
+
+2. Link local project to GitHub:
+   git remote add origin https://github.com/sathidevivaraprasadreddy/quickshare.git
    git branch -M main
-   git config user.email "<your-email>"
-   git config user.name "<your-name>"
 
-3. Push code to GitHub:
+3. Set your Git Identity:
+   git config user.email "sathidevivaraprasad53383@gmail.com"
+   git config user.name "sathidevivaraprasadreddy"
+
+4. Push Code to GitHub using Personal Access Token:
+   git remote set-url origin https://<TOKEN>@github.com/sathidevivaraprasadreddy/quickshare.git
    git push -u origin main
-   (Your repository is now backed up and ready for 1-click cloud deployments).
+   git remote set-url origin https://github.com/sathidevivaraprasadreddy/quickshare.git
+   (The remote URL is sanitized to protect your token from ever being saved in .git/config).
 
 
 ================================================================================
-11. STEP 9: CLOUD DATABASE SETUP (TIDB SERVERLESS - FREE MYSQL)
+PHASE 10: TIDB SERVERLESS CLOUD DATABASE SETUP & MIGRATION
 ================================================================================
-1. Go to https://tidbcloud.com and sign up for free (using GitHub).
+TiDB Serverless gives 5 GB of MySQL 8.0-compatible storage forever with zero credit card:
+
+1. Go to https://tidbcloud.com and sign up with GitHub.
 2. Click Create / Create TiDB:
-   - Plan: Starter ($0/month Free Forever - 5 GB row storage).
+   - Select: Starter ($0/month Free Forever).
    - Compatibility Mode: MySQL Compatible (Default).
-   - Name: quickshare-db
-   - Spending Limit: $0 (guarantees ₹0 cost).
+   - Instance Name: quickshare-db
+   - Spending Limit: $0 (guarantees zero charges).
    - Click Create.
 
 3. Click Connect (top right) ➔ Generate Password.
-4. Copy the connection string:
-   mysql://<user>:<password>@gateway01.<region>.prod.aws.tidbcloud.com:4000/quickshare_db?ssl={"rejectUnauthorized":true}
+4. Copy your Connection URL:
+   mysql://2hQS79smzUQ2dfW.root:VNCM1Sn7C8mDwR2l@gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/quickshare_db?ssl={"rejectUnauthorized":true}
 
-5. Run migrations into the cloud database:
-   $env:DATABASE_URL="<your_tidb_url>"
+5. Run migrations directly into the cloud database from your terminal:
+   $env:DATABASE_URL="mysql://2hQS79smzUQ2dfW.root:VNCM1Sn7C8mDwR2l@gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/quickshare_db?ssl={`"rejectUnauthorized`":true}"
    npm --prefix backend run migrate
-   (All tables are created in the cloud!).
+   (The tables share_sessions and share_files are created in the cloud!).
 
 
 ================================================================================
-12. STEP 10: PERSISTENT CLOUD STORAGE SETUP (SUPABASE S3 BUCKET)
+PHASE 11: SUPABASE CLOUD OBJECT STORAGE SETUP (S3 BUCKET)
 ================================================================================
 Supabase gives 1 GB of permanent cloud object storage with NO credit card needed:
-1. Go to https://supabase.com and sign in with GitHub.
-2. Click New Project (Name: quickshare, Region: Southeast Asia - Singapore).
-3. Click Storage ➔ New Bucket:
-   - Bucket name: quickshare-files
-   - Public bucket: ON
-   - Click Create bucket.
 
-4. Open Storage Settings (https://supabase.com/dashboard/project/<ref>/storage/settings):
-   - Scroll to S3 Access Keys.
+1. Go to https://supabase.com and sign in with GitHub.
+2. Click New Project:
+   - Project Name: quickshare
+   - Region: Southeast Asia (Singapore)
+   - Click Create new project.
+
+3. Create the Storage Bucket:
+   - In left navigation, click Storage (archive icon 📦).
+   - Click New bucket.
+   - Bucket name: quickshare-files
+   - Public bucket: Toggle ON.
+   - Click Save.
+
+4. Generate S3 Access Keys:
+   - Go to: https://supabase.com/dashboard/project/<ref>/storage/settings
+   - Scroll down to S3 Access Keys.
    - Click New access key.
+   - Description: quickshare
    - Copy:
-     * Access Key ID
-     * Secret Access Key
-     * Endpoint URL: https://<ref>.supabase.co/storage/v1/s3
+     * Access Key ID: 53e2e6064fcb64865ca73838a2f05293
+     * Secret Access Key: c388db92f9afa2be22cd427970d783bdf742d5c80c0cb67053032cd75cfad9eb
+     * Endpoint: https://grwouvpibksfewggcdzc.supabase.co/storage/v1/s3
      * Region: ap-southeast-1
 
 
 ================================================================================
-13. STEP 11: DEPLOYING BACKEND TO RENDER (FREE WEB SERVICE)
+PHASE 12: RENDER BACKEND PRODUCTION DEPLOYMENT
 ================================================================================
 1. Go to https://dashboard.render.com and sign in with GitHub.
-2. Click New + ➔ Web Service ➔ connect your quickshare repo.
-3. Configure Service:
-   - Name: quickshare-api
-   - Root Directory: backend
-   - Runtime: Node
-   - Build Command: npm install
-   - Start Command: node src/server.js
-   - Instance Type: Free ($0/month)
+2. Click New + ➔ Web Service.
+3. Select "Build and deploy from a Git repository" ➔ connect your quickshare repo.
+4. Fill in the service configuration:
+   - Name          : quickshare-api
+   - Region        : Oregon (US West) or Singapore
+   - Branch        : main
+   - Root Directory: backend  (⚠️ Must be typed!)
+   - Runtime       : Node
+   - Build Command : npm install
+   - Start Command : node src/server.js
+   - Instance Type : Free ($0 / month)
 
-4. Add Environment Variables:
-   - NODE_ENV            = production
-   - PORT                = 10000
-   - STORAGE_DRIVER      = s3
-   - DATABASE_URL        = mysql://<user>:<pass>@gateway01.<region>.prod.aws.tidbcloud.com:4000/quickshare_db?ssl={"rejectUnauthorized":true}
-   - S3_ENDPOINT         = https://<ref>.supabase.co/storage/v1/s3
-   - S3_REGION           = ap-southeast-1
-   - S3_ACCESS_KEY_ID    = <your_supabase_access_key_id>
-   - S3_SECRET_ACCESS_KEY= <your_supabase_secret_access_key>
-   - S3_BUCKET_NAME      = quickshare-files
+5. Under Environment Variables, click Add Environment Variable and enter:
 
-5. Click Deploy Web Service!
-   Render will deploy your backend at: https://quickshare-api-hbal.onrender.com
+   KEY                   VALUE
+   --------------------  -------------------------------------------------------
+   NODE_ENV              production
+   PORT                  10000
+   STORAGE_DRIVER        s3
+   DATABASE_URL          mysql://2hQS79smzUQ2dfW.root:VNCM1Sn7C8mDwR2l@gateway01.ap-northeast-1.prod.aws.tidbcloud.com:4000/quickshare_db?ssl={"rejectUnauthorized":true}
+   S3_ENDPOINT           https://grwouvpibksfewggcdzc.supabase.co/storage/v1/s3
+   S3_REGION             ap-southeast-1
+   S3_ACCESS_KEY_ID      53e2e6064fcb64865ca73838a2f05293
+   S3_SECRET_ACCESS_KEY  c388db92f9afa2be22cd427970d783bdf742d5c80c0cb67053032cd75cfad9eb
+   S3_BUCKET_NAME        quickshare-files
+
+6. Click Deploy Web Service!
+   Render builds and activates your live backend at:
+   https://quickshare-api-hbal.onrender.com
 
 
 ================================================================================
-14. STEP 12: DEPLOYING FRONTEND TO VERCEL (FREE EDGE CDN)
+PHASE 13: VERCEL FRONTEND PRODUCTION DEPLOYMENT
 ================================================================================
 1. Go to https://vercel.com and sign in with GitHub.
-2. Click Add New… ➔ Project ➔ Import quickshare repo.
-3. Configure Project:
-   - Root Directory: Click Edit and select "frontend".
-   - Framework Preset: Vite (auto-detected).
+2. Click Add New… ➔ Project ➔ Import quickshare.
+3. Configure settings:
+   - Root Directory: Click Edit and choose "frontend".
+   - Framework Preset: Vite (automatically detected).
 
 4. Add Environment Variable:
-   - VITE_API_URL = https://quickshare-api-hbal.onrender.com/api
+   KEY           VALUE
+   ------------  --------------------------------------------
+   VITE_API_URL  https://quickshare-api-hbal.onrender.com/api
 
 5. Click Deploy!
-   Vercel deploys your live app in ~25 seconds at:
+   In ~25 seconds, Vercel gives you your live production URL:
    https://quickshare-azure.vercel.app/
 
 
 ================================================================================
-15. STEP 13: END-TO-END PRODUCTION VERIFICATION
+PHASE 14: LIVE PRODUCTION END-TO-END VERIFICATION
 ================================================================================
-1. Open https://quickshare-azure.vercel.app/ on any mobile phone, tablet, or laptop.
-2. Drag and drop any file (e.g. image, PDF, zip) or click Browse.
-3. Select expiration time (e.g. 24 hours).
-4. Watch the real-time upload progress bar.
-5. The backend on Render streams the file directly into your Supabase S3 bucket.
-6. A record with the 128-bit cryptographic token is created in your TiDB Cloud database.
-7. Copy the public link or scan the QR Code on another device.
-8. Download the file or download all files bundled as a compressed ZIP!
-9. Test the Owner Revocation Key:
-   - Click "Revoke this link & delete files now".
+1. Open https://quickshare-azure.vercel.app/ in any web browser.
+2. Verify Backend Status indicator shows "Backend Ready" (green pulsing dot).
+3. Drag and drop any file (photo, PDF, document, archive).
+4. Select expiration (e.g. 24 hours).
+5. Click "Create Share Link":
+   - The file streams through Render directly into Supabase Cloud S3.
+   - An encrypted token is registered in TiDB Serverless.
+6. Copy the share link or scan the QR Code on another device.
+7. Open the download link on another smartphone or laptop:
+   - Individual files download with original filenames and headers intact.
+   - If multiple files are uploaded, clicking "Download All as ZIP" streams a dynamic .zip archive!
+8. Test Revocation:
+   - On the sender device, click "Revoke this link & delete files now".
    - The file is deleted from Supabase Object Storage immediately.
-   - The link permanently expires (HTTP 410 Gone).
+   - The download link expires instantly (HTTP 410 Gone).
 
 
 ================================================================================
-16. SECURITY & MAINTENANCE REFERENCE MANUAL
+PHASE 15: SECURITY, ARCHITECTURE & MAINTENANCE GUIDE
 ================================================================================
-1. Cryptographic Entropy:
-   - Public download tokens: 32 hex chars (2^128 combinations). Impossible to guess.
-   - Owner revocation keys : 48 hex chars (2^192 combinations). Secret to uploader.
+1. Security Specifications:
+   - Unpredictable Tokens: 16 cryptographically random bytes (2^128 entropy).
+   - Revocation Keys: 24 cryptographically random bytes (2^192 entropy).
+   - Filename Sanitization: Strips control characters, null bytes, and traversal attempts.
+   - Safe Serving: Content-Disposition: attachment, X-Content-Type-Options: nosniff.
+   - SQL Security: 100% prepared parameterized queries with ? placeholders.
+   - DDoS Rate Limits: 30 uploads / 120 downloads per 15 minutes per IP.
 
-2. Path Traversal & Injection Prevention:
-   - All uploaded filenames are stripped with path.basename() and sanitized of null bytes.
-   - Stored filenames use random hashes.
-   - Path resolution checks resolveSafePath boundary before disk access.
-   - SQL queries use 100% parameterized statements with ? placeholders.
+2. Resource Limits & Maintenance:
+   - TiDB Serverless: 5 GB row storage. When monthly limit is set to $0, zero charges can occur.
+   - Supabase Storage: 1 GB persistent S3 bucket.
+   - Render Web Service: Spins down after 15 minutes of inactivity; takes ~30 seconds to wake up.
+   - Vercel CDN: 100 GB fast bandwidth per month.
 
-3. Content-Disposition:
-   - Served strictly with:
-     * Content-Disposition: attachment; filename="..."
-     * X-Content-Type-Options: nosniff
-   - Prevents browser script execution attacks.
-
-4. Free Tier Limits & Resource Management:
-   - TiDB Serverless : 5 GB row storage (auto-scales with 0 cost at $0 spending limit).
-   - Supabase Storage: 1 GB persistent object storage (50 MB per file limit).
-   - Render Free Tier: 512 MB RAM (spins down after 15 min inactivity, wakes in ~30s).
-   - Vercel Free Tier: 100 GB edge bandwidth per month.
+3. Routine Maintenance:
+   - The background cleaner job runs automatically every 15 minutes to delete expired files.
+   - To update code: Simply commit and push to GitHub (git push origin main); both Render and Vercel will rebuild and deploy automatically!
 
 ================================================================================
-                       END OF QUICKSHARE MANUAL
+                       END OF QUICKSHARE MASTER MANUAL
 ================================================================================
