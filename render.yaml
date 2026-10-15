@@ -13,18 +13,8 @@ services:
       - key: PORT
         value: 10000
       - key: STORAGE_DRIVER
-        value: s3
+        value: local
       - key: DATABASE_URL
         sync: false
-      - key: S3_ENDPOINT
-        sync: false
-      - key: S3_REGION
-        value: auto
-      - key: S3_ACCESS_KEY_ID
-        sync: false
-      - key: S3_SECRET_ACCESS_KEY
-        sync: false
-      - key: S3_BUCKET_NAME
-        value: quickshare-files
       - key: FRONTEND_URL
         sync: false
