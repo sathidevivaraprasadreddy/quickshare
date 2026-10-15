@@ -1,0 +1,203 @@
+import React, { useState } from 'react';
+import {
+  CheckCircle2,
+  Copy,
+  Check,
+  QrCode,
+  ShieldAlert,
+  ArrowRight,
+  Clock,
+  Layers,
+  HardDrive,
+  RotateCcw
+} from 'lucide-react';
+import { formatFileSize, formatTimeRemaining } from '../utils/formatters';
+
+export default function ShareResult({
+  result,
+  onReset,
+  onShowQR,
+  onRevoke
+}) {
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [copiedToken, setCopiedToken] = useState(false);
+  const [showRevokeConfirm, setShowRevokeConfirm] = useState(false);
+  const [revoking, setRevoking] = useState(false);
+
+  // Construct absolute download URL
+  const shareUrl = `${window.location.origin}${window.location.pathname}?token=${result.shareToken}`;
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(shareUrl);
+    setCopiedLink(true);
+    setTimeout(() => setCopiedLink(false), 2500);
+  };
+
+  const handleCopyRevokeToken = () => {
+    navigator.clipboard.writeText(result.revokeToken);
+    setCopiedToken(true);
+    setTimeout(() => setCopiedToken(false), 2500);
+  };
+
+  const handleConfirmRevoke = async () => {
+    setRevoking(true);
+    try {
+      await onRevoke(result.shareToken, result.revokeToken);
+    } finally {
+      setRevoking(false);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 sm:p-8 animate-fade-in space-y-6">
+      {/* Header Banner */}
+      <div className="flex items-center gap-3.5 pb-6 border-b border-slate-100">
+        <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+          <CheckCircle2 className="w-6 h-6" />
+        </div>
+        <div>
+          <h3 className="text-xl font-bold text-slate-900 tracking-tight">
+            Files Ready to Share!
+          </h3>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Anyone with this link can download your files before expiry.
+          </p>
+        </div>
+      </div>
+
+      {/* Share Link Box */}
+      <div>
+        <label className="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">
+          Public Download Link
+        </label>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+          <div className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-mono text-slate-700 truncate select-all">
+            {shareUrl}
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleCopyLink}
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-rose-600 hover:bg-rose-700 text-white font-medium text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm transition-all"
+            >
+              {copiedLink ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+              <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
+            </button>
+
+            <button
+              onClick={() => onShowQR(shareUrl)}
+              className="inline-flex items-center justify-center p-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-colors"
+              title="Show QR Code for mobile"
+            >
+              <QrCode className="w-5 h-5 text-slate-600" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Session Metadata Grid */}
+      <div className="grid grid-cols-3 gap-3 p-4 bg-slate-50/80 rounded-2xl border border-slate-100">
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <Layers className="w-3.5 h-3.5 text-slate-400" />
+            <span>Files</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800">
+            {result.fileCount} {result.fileCount === 1 ? 'file' : 'files'}
+          </p>
+        </div>
+
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <HardDrive className="w-3.5 h-3.5 text-slate-400" />
+            <span>Total Size</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800">
+            {formatFileSize(result.totalSizeBytes)}
+          </p>
+        </div>
+
+        <div className="text-center sm:text-left">
+          <div className="flex items-center justify-center sm:justify-start gap-1 text-[11px] font-medium text-slate-500 mb-1">
+            <Clock className="w-3.5 h-3.5 text-rose-500" />
+            <span>Expires</span>
+          </div>
+          <p className="text-sm sm:text-base font-bold text-slate-800 truncate" title={new Date(result.expiresAt).toLocaleString()}>
+            {formatTimeRemaining(result.expiresAt)}
+          </p>
+        </div>
+      </div>
+
+      {/* Owner Control Section: Revocation */}
+      <div className="p-4 rounded-2xl border border-amber-200/80 bg-amber-50/40">
+        <div className="flex items-start gap-3">
+          <ShieldAlert className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="flex-1">
+            <h4 className="text-xs font-bold text-amber-900 uppercase tracking-wide">
+              Owner Management & Revocation
+            </h4>
+            <p className="text-xs text-amber-800/80 mt-1">
+              Want to delete these files early? Only you have the revocation key below:
+            </p>
+
+            <div className="mt-2.5 flex items-center gap-2">
+              <span className="font-mono text-[11px] bg-white border border-amber-200 text-amber-950 px-2 py-1 rounded-lg truncate select-all flex-1">
+                {result.revokeToken}
+              </span>
+              <button
+                onClick={handleCopyRevokeToken}
+                className="text-xs text-amber-700 hover:text-amber-900 px-2 py-1 bg-amber-100 hover:bg-amber-200 rounded-lg transition-colors flex items-center gap-1 font-medium"
+                title="Copy Revoke Token"
+              >
+                {copiedToken ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                <span>{copiedToken ? 'Copied' : 'Copy'}</span>
+              </button>
+            </div>
+
+            {!showRevokeConfirm ? (
+              <button
+                onClick={() => setShowRevokeConfirm(true)}
+                className="mt-3 text-xs font-semibold text-rose-600 hover:text-rose-700 hover:underline"
+              >
+                Revoke this link & delete files now
+              </button>
+            ) : (
+              <div className="mt-3 p-3 bg-white border border-rose-200 rounded-xl">
+                <p className="text-xs text-rose-700 font-medium mb-2">
+                  Are you sure? Files will be deleted from storage immediately and the download link will stop working.
+                </p>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleConfirmRevoke}
+                    disabled={revoking}
+                    className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-medium transition-colors"
+                  >
+                    {revoking ? 'Deleting...' : 'Yes, Delete Now'}
+                  </button>
+                  <button
+                    onClick={() => setShowRevokeConfirm(false)}
+                    disabled={revoking}
+                    className="px-3 py-1.5 rounded-lg border border-slate-200 text-slate-600 hover:bg-slate-50 text-xs font-medium transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Reset / Share More Button */}
+      <div className="pt-2 text-center">
+        <button
+          onClick={onReset}
+          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-rose-600 transition-colors"
+        >
+          <RotateCcw className="w-4 h-4" />
+          <span>Upload and share more files</span>
+        </button>
+      </div>
+    </div>
+  );
+}
