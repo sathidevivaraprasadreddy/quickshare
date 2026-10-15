@@ -40,6 +40,9 @@ backend/uploads/*
 # Local developer tools
 tools/
 
+# Local reference and credentials manuals
+steps.txt
+
 # OS files
 Thumbs.db
 .DS_Store
