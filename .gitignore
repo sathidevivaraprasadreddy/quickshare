@@ -43,6 +43,12 @@ tools/
 # Local reference and credentials manuals
 steps.txt
 
+# Presentation files
+create_presentation.py
+*.pptx
+nbkr_logo.png
+quickshare_logo.png
+
 # OS files
 Thumbs.db
 .DS_Store
