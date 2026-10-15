@@ -1,6 +1,12 @@
 # QuickShare 🚀
 > Fast, secure, and ephemeral file sharing inspired by Send Anywhere — built with React, Node.js, Express, and MySQL, with **₹0 zero-cost deployment**.
 
+### 🌐 Live Production Application
+- **Frontend App:** [https://quickshare-azure.vercel.app/](https://quickshare-azure.vercel.app/)
+- **Backend API:** [https://quickshare-api-hbal.onrender.com/](https://quickshare-api-hbal.onrender.com/)
+- **Cloud Database:** TiDB Serverless (Cloud MySQL)
+- **Repository:** [https://github.com/sathidevivaraprasadreddy/quickshare](https://github.com/sathidevivaraprasadreddy/quickshare)
+
 ---
 
 ## 📋 Table of Contents
